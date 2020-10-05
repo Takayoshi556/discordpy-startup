@@ -51,60 +51,409 @@ SPREADSHEET_KEY = '1HsQ_p2Hsg2g4tb8bXClOqseIhCYoI-4-FaWNrlktdnE'
 
 @client.event
 async def on_message(message):
-    culc_channel = client.get_channel(740355050182017135)  # 本番用
-    wai_channel = client.get_channel(658468918243098626)  # 本番用
-    ami_channel = client.get_channel(675359824803790850)
-    list_channel = client.get_channel(743314066713477251)
-    regi_channel = client.get_channel(744727455293767711)
-    test_channel = client.get_channel(722253470023024640)
-    zatsu_channel = client.get_channel(658468918243098626)
+    a_channel = client.get_channel(762669239588487208)  # 本番用
+    b_channel = client.get_channel(762669299248398366)  # 本番用
+    c_channel = client.get_channel(762669351064305724)
+    d_channel = client.get_channel(762669465891504169)
+    e_channel = client.get_channel(762669524771274802)
+    worksheet_event = gc.open_by_key(SPREADSHEET_KEY).worksheet('event')
+    entry_channel = client.get_channel(737598436693770282)
 
     if message.author == client.user:
         return
 
-    elif message.content.startswith('最近仕事が？'):
-        if message.channel.id == 658468918243098626:
-            await zatsu_channel.send('忙しすぎや！( ；∀；)')
+    elif message.content.startswith('挨拶しなよえろぼっと'):
+        await entry_channel.send('はじめまして。イベント採点に来ました。\n権限付与をお願いします。')
 
-    elif message.content.startswith('roze '):
-        if message.channel.id == 658468918243098626:
-            worksheet_event = gc.open_by_key(SPREADSHEET_KEY).worksheet('event')
-            drop_high_list = message.content.split()
-            drop_grade = drop_high_list[1]
-            if drop_grade == str('csc'):
+    elif message.content.startswith('csc'):
+        if message.channel.id == 762669239588487208:
+            point = worksheet_event.cell(2, 2).value
+            point = int(point) + int(1)
+            worksheet_event.update_cell(2, 2, str(point))
+            total = worksheet_event.cell(2, 8).value
+            await a_channel.send('Cスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669299248398366:
+            point = worksheet_event.cell(3, 2).value
+            point = int(point) + int(1)
+            worksheet_event.update_cell(3, 2, str(point))
+            total = worksheet_event.cell(3, 8).value
+            await b_channel.send('Cスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669351064305724:
+            point = worksheet_event.cell(4, 2).value
+            point = int(point) + int(1)
+            worksheet_event.update_cell(4, 2, str(point))
+            total = worksheet_event.cell(4, 8).value
+            await c_channel.send('Cスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669465891504169:
+            point = worksheet_event.cell(5, 2).value
+            point = int(point) + int(1)
+            worksheet_event.update_cell(5, 2, str(point))
+            total = worksheet_event.cell(5, 8).value
+            await d_channel.send('Cスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669524771274802:
+            point = worksheet_event.cell(6, 2).value
+            point = int(point) + int(1)
+            worksheet_event.update_cell(6, 2, str(point))
+            total = worksheet_event.cell(6, 8).value
+            await e_channel.send('Cスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+
+    elif message.content.startswith('bsc'):
+        if message.channel.id == 762669239588487208:
+            point = worksheet_event.cell(2, 3).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(2, 3, str(point))
+            total = worksheet_event.cell(2, 8).value
+            await a_channel.send('Bスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669299248398366:
+            point = worksheet_event.cell(3, 3).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(3, 3, str(point))
+            total = worksheet_event.cell(3, 8).value
+            await b_channel.send('Bスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669351064305724:
+            point = worksheet_event.cell(4, 3).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(4, 3, str(point))
+            total = worksheet_event.cell(4, 8).value
+            await c_channel.send('Bスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669465891504169:
+            point = worksheet_event.cell(5, 3).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(5, 3, str(point))
+            total = worksheet_event.cell(5, 8).value
+            await d_channel.send('Bスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669524771274802:
+            point = worksheet_event.cell(6, 3).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(6, 3, str(point))
+            total = worksheet_event.cell(6, 8).value
+            await e_channel.send('Bスクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+
+    elif message.content.startswith('blue'):
+        if message.channel.id == 762669239588487208:
+            point = worksheet_event.cell(2, 4).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(2, 4, str(point))
+            total = worksheet_event.cell(2, 8).value
+            await a_channel.send('青ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669299248398366:
+            point = worksheet_event.cell(3, 4).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(3, 4, str(point))
+            total = worksheet_event.cell(3, 8).value
+            await b_channel.send('青ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669351064305724:
+            point = worksheet_event.cell(4, 4).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(4, 4, str(point))
+            total = worksheet_event.cell(4, 8).value
+            await c_channel.send('青ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669465891504169:
+            point = worksheet_event.cell(5, 4).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(5, 4, str(point))
+            total = worksheet_event.cell(5, 8).value
+            await d_channel.send('青ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669524771274802:
+            point = worksheet_event.cell(6, 4).value
+            point = int(point) + int(2)
+            worksheet_event.update_cell(6, 4, str(point))
+            total = worksheet_event.cell(6, 8).value
+            await e_channel.send('青ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+
+    elif message.content.startswith('祝福'):
+        if message.channel.id == 762669239588487208:
+            point = worksheet_event.cell(2, 5).value
+            point = int(point) + int(3)
+            worksheet_event.update_cell(2, 5, str(point))
+            total = worksheet_event.cell(2, 8).value
+            await a_channel.send('祝福付与スクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669299248398366:
+            point = worksheet_event.cell(3, 5).value
+            point = int(point) + int(3)
+            worksheet_event.update_cell(3, 5, str(point))
+            total = worksheet_event.cell(3, 8).value
+            await b_channel.send('祝福付与スクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669351064305724:
+            point = worksheet_event.cell(4, 5).value
+            point = int(point) + int(3)
+            worksheet_event.update_cell(4, 5, str(point))
+            total = worksheet_event.cell(4, 8).value
+            await c_channel.send('祝福付与スクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669465891504169:
+            point = worksheet_event.cell(5, 5).value
+            point = int(point) + int(3)
+            worksheet_event.update_cell(5, 5, str(point))
+            total = worksheet_event.cell(5, 8).value
+            await d_channel.send('祝福付与スクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669524771274802:
+            point = worksheet_event.cell(6, 5).value
+            point = int(point) + int(3)
+            worksheet_event.update_cell(6, 5, str(point))
+            total = worksheet_event.cell(6, 8).value
+            await e_channel.send('祝福付与スクのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+
+    elif message.content.startswith('red'):
+        if message.channel.id == 762669239588487208:
+            point = worksheet_event.cell(2, 6).value
+            point = int(point) + int(5)
+            worksheet_event.update_cell(2, 6, str(point))
+            total = worksheet_event.cell(2, 8).value
+            await a_channel.send('赤ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669299248398366:
+            point = worksheet_event.cell(3, 6).value
+            point = int(point) + int(5)
+            worksheet_event.update_cell(3, 6, str(point))
+            total = worksheet_event.cell(3, 8).value
+            await b_channel.send('赤ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669351064305724:
+            point = worksheet_event.cell(4, 6).value
+            point = int(point) + int(5)
+            worksheet_event.update_cell(4, 6, str(point))
+            total = worksheet_event.cell(4, 8).value
+            await c_channel.send('赤ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669465891504169:
+            point = worksheet_event.cell(5, 6).value
+            point = int(point) + int(5)
+            worksheet_event.update_cell(5, 6, str(point))
+            total = worksheet_event.cell(5, 8).value
+            await d_channel.send('赤ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669524771274802:
+            point = worksheet_event.cell(6, 6).value
+            point = int(point) + int(5)
+            worksheet_event.update_cell(6, 6, str(point))
+            total = worksheet_event.cell(6, 8).value
+            await e_channel.send('赤ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+
+    elif message.content.startswith('purple'):
+        if message.channel.id == 762669239588487208:
+            point = worksheet_event.cell(2, 7).value
+            point = int(point) + int(10)
+            worksheet_event.update_cell(2, 7, str(point))
+            total = worksheet_event.cell(2, 8).value
+            await a_channel.send('紫ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669299248398366:
+            point = worksheet_event.cell(3, 7).value
+            point = int(point) + int(10)
+            worksheet_event.update_cell(3, 7, str(point))
+            total = worksheet_event.cell(3, 8).value
+            await b_channel.send('紫ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669351064305724:
+            point = worksheet_event.cell(4, 7).value
+            point = int(point) + int(10)
+            worksheet_event.update_cell(4, 7, str(point))
+            total = worksheet_event.cell(4, 8).value
+            await c_channel.send('紫ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669465891504169:
+            point = worksheet_event.cell(5, 7).value
+            point = int(point) + int(10)
+            worksheet_event.update_cell(5, 7, str(point))
+            total = worksheet_event.cell(5, 8).value
+            await d_channel.send('紫ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+        elif message.channel.id == 762669524771274802:
+            point = worksheet_event.cell(6, 7).value
+            point = int(point) + int(10)
+            worksheet_event.update_cell(6, 7, str(point))
+            total = worksheet_event.cell(6, 8).value
+            await e_channel.send('紫ドロップのポイントを登録しました。\n現在のポイントは' + str(total) + 'です。' )
+            
+    elif message.content.startswith('del '):
+        del_list = message.content.split()
+        del_grade = del_list[1]
+        if del_grade == 'csc':
+            if message.channel.id == 762669239588487208:
                 point = worksheet_event.cell(2, 2).value
-                point = int(point) + int(1)
+                point = int(point) - int(1)
                 worksheet_event.update_cell(2, 2, str(point))
-                await zatsu_channel.send('Cスクのポイント登録しました。\n現在のポイントは' + str(point) + 'です。' )
-                return
-            if drop_grade == str('bsc'):
-                point = worksheet_event.cell(2, 3).value
-                point = int(point) + int(1)
-                worksheet_event.update_cell(2, 3, str(point))
-                await zatsu_channel.send('Bスクのポイント登録しました。\n現在のポイントは' + str(point) + 'です。' )
-                return
-            if drop_grade == str('blue'):
-                point = worksheet_event.cell(2, 4).value
-                point = int(point) + int(1)
-                worksheet_event.update_cell(2, 4, str(point))
-                await zatsu_channel.send('青ドロップのポイント登録しました。\n現在のポイントは' + str(point) + 'です。' )
-                return
-            if drop_grade == str('red'):
-                point = worksheet_event.cell(2, 5).value
-                point = int(point) + int(1)
-                worksheet_event.update_cell(2, 5, str(point))
-                await zatsu_channel.send('赤ドロップのポイント登録しました。\n現在のポイントは' + str(point) + 'です。' )
-                return
-            if drop_grade == str('purple'):
-                point = worksheet_event.cell(2, 6).value
-                point = int(point) + int(1)
-                worksheet_event.update_cell(2, 6, str(point))
-                await zatsu_channel.send('紫ドロップのポイント登録しました。\n現在のポイントは' + str(point) + 'です。' )
-                return
+                total = worksheet_event.cell(2, 8).value
+                await a_channel.send('Cスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669299248398366:
+                point = worksheet_event.cell(3, 2).value
+                point = int(point) - int(1)
+                worksheet_event.update_cell(3, 2, str(point))
+                total = worksheet_event.cell(3, 8).value
+                await b_channel.send('Cスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669351064305724:
+                point = worksheet_event.cell(4, 2).value
+                point = int(point) - int(1)
+                worksheet_event.update_cell(4, 2, str(point))
+                total = worksheet_event.cell(4, 8).value
+                await c_channel.send('Cスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669465891504169:
+                point = worksheet_event.cell(5, 2).value
+                point = int(point) - int(1)
+                worksheet_event.update_cell(5, 2, str(point))
+                total = worksheet_event.cell(5, 8).value
+                await d_channel.send('Cスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669524771274802:
+                point = worksheet_event.cell(6, 2).value
+                point = int(point) - int(1)
+                worksheet_event.update_cell(6, 2, str(point))
+                total = worksheet_event.cell(6, 8).value
+                await e_channel.send('Cスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
 
+        elif del_grade == 'bsc':
+            if message.channel.id == 762669239588487208:
+                point = worksheet_event.cell(2, 3).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(2, 3, str(point))
+                total = worksheet_event.cell(2, 8).value
+                await a_channel.send('Bスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669299248398366:
+                point = worksheet_event.cell(3, 3).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(3, 3, str(point))
+                total = worksheet_event.cell(3, 8).value
+                await b_channel.send('Bスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669351064305724:
+                point = worksheet_event.cell(4, 3).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(4, 3, str(point))
+                total = worksheet_event.cell(4, 8).value
+                await c_channel.send('Bスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669465891504169:
+                point = worksheet_event.cell(5, 3).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(5, 3, str(point))
+                total = worksheet_event.cell(5, 8).value
+                await d_channel.send('Bスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669524771274802:
+                point = worksheet_event.cell(6, 3).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(6, 3, str(point))
+                total = worksheet_event.cell(6, 8).value
+                await e_channel.send('Bスクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+
+        elif del_grade == 'blue':
+            if message.channel.id == 762669239588487208:
+                point = worksheet_event.cell(2, 4).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(2, 4, str(point))
+                total = worksheet_event.cell(2, 8).value
+                await a_channel.send('青ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669299248398366:
+                point = worksheet_event.cell(3, 4).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(3, 4, str(point))
+                total = worksheet_event.cell(3, 8).value
+                await b_channel.send('青ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669351064305724:
+                point = worksheet_event.cell(4, 4).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(4, 4, str(point))
+                total = worksheet_event.cell(4, 8).value
+                await c_channel.send('青ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669465891504169:
+                point = worksheet_event.cell(5, 4).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(5, 4, str(point))
+                total = worksheet_event.cell(5, 8).value
+                await d_channel.send('青ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669524771274802:
+                point = worksheet_event.cell(6, 4).value
+                point = int(point) - int(2)
+                worksheet_event.update_cell(6, 4, str(point))
+                total = worksheet_event.cell(6, 8).value
+                await e_channel.send('青ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+
+        elif del_grade == '祝福':
+            if message.channel.id == 762669239588487208:
+                point = worksheet_event.cell(2, 5).value
+                point = int(point) - int(3)
+                worksheet_event.update_cell(2, 5, str(point))
+                total = worksheet_event.cell(2, 8).value
+                await a_channel.send('祝福付与スクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669299248398366:
+                point = worksheet_event.cell(3, 5).value
+                point = int(point) - int(3)
+                worksheet_event.update_cell(3, 5, str(point))
+                total = worksheet_event.cell(3, 8).value
+                await b_channel.send('祝福付与スクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669351064305724:
+                point = worksheet_event.cell(4, 5).value
+                point = int(point) - int(3)
+                worksheet_event.update_cell(4, 5, str(point))
+                total = worksheet_event.cell(4, 8).value
+                await c_channel.send('祝福付与スクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669465891504169:
+                point = worksheet_event.cell(5, 5).value
+                point = int(point) - int(3)
+                worksheet_event.update_cell(5, 5, str(point))
+                total = worksheet_event.cell(5, 8).value
+                await d_channel.send('祝福付与スクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669524771274802:
+                point = worksheet_event.cell(6, 5).value
+                point = int(point) - int(3)
+                worksheet_event.update_cell(6, 5, str(point))
+                total = worksheet_event.cell(6, 8).value
+                await e_channel.send('祝福付与スクのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+
+        elif del_grade == 'red':
+            if message.channel.id == 762669239588487208:
+                point = worksheet_event.cell(2, 6).value
+                point = int(point) - int(5)
+                worksheet_event.update_cell(2, 6, str(point))
+                total = worksheet_event.cell(2, 8).value
+                await a_channel.send('赤ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669299248398366:
+                point = worksheet_event.cell(3, 6).value
+                point = int(point) - int(5)
+                worksheet_event.update_cell(3, 6, str(point))
+                total = worksheet_event.cell(3, 8).value
+                await b_channel.send('赤ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669351064305724:
+                point = worksheet_event.cell(4, 6).value
+                point = int(point) - int(5)
+                worksheet_event.update_cell(4, 6, str(point))
+                total = worksheet_event.cell(4, 8).value
+                await c_channel.send('赤ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669465891504169:
+                point = worksheet_event.cell(5, 6).value
+                point = int(point) - int(5)
+                worksheet_event.update_cell(5, 6, str(point))
+                total = worksheet_event.cell(5, 8).value
+                await d_channel.send('赤ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669524771274802:
+                point = worksheet_event.cell(6, 6).value
+                point = int(point) - int(5)
+                worksheet_event.update_cell(6, 6, str(point))
+                total = worksheet_event.cell(6, 8).value
+                await e_channel.send('赤ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+
+        elif del_grade == 'purple':
+            if message.channel.id == 762669239588487208:
+                point = worksheet_event.cell(2, 7).value
+                point = int(point) - int(10)
+                worksheet_event.update_cell(2, 7, str(point))
+                total = worksheet_event.cell(2, 8).value
+                await a_channel.send('紫ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669299248398366:
+                point = worksheet_event.cell(3, 7).value
+                point = int(point) - int(10)
+                worksheet_event.update_cell(3, 7, str(point))
+                total = worksheet_event.cell(3, 8).value
+                await b_channel.send('紫ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669351064305724:
+                point = worksheet_event.cell(4, 7).value
+                point = int(point) - int(10)
+                worksheet_event.update_cell(4, 7, str(point))
+                total = worksheet_event.cell(4, 8).value
+                await c_channel.send('紫ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669465891504169:
+                point = worksheet_event.cell(5, 7).value
+                point = int(point) - int(10)
+                worksheet_event.update_cell(5, 7, str(point))
+                total = worksheet_event.cell(5, 8).value
+                await d_channel.send('紫ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
+            elif message.channel.id == 762669524771274802:
+                point = worksheet_event.cell(6, 7).value
+                point = int(point) - int(10)
+                worksheet_event.update_cell(6, 7, str(point))
+                total = worksheet_event.cell(6, 8).value
+                await e_channel.send('紫ドロップのポイントを減算しました。\n現在のポイントは' + str(total) + 'です。')
 
     elif message.content.startswith('elist'):
-        if message.channel.id == 658468918243098626:
+        if message.channel.id == 762669239588487208:
             worksheet_event = gc.open_by_key(SPREADSHEET_KEY).worksheet('event')
             r_list = list()
             for num in range(5):
@@ -115,15 +464,17 @@ async def on_message(message):
                 get_item = worksheet_event.cell(num_row, 4).value
                 get_name = worksheet_event.cell(num_row, 5).value
                 get_date = worksheet_event.cell(num_row, 6).value
-                total_p = worksheet_event.cell(num_row, 7).value
-                r_list.append(ch_no + ' :\t' +total_p + '  ('+ get_id + '\t/ ' + get_boss + '\t/ ' + get_item + '\t/ ' + get_name + '\t/ ' + get_date + ' )')
+                get_p = worksheet_event.cell(num_row, 7).value
+                total_p = worksheet_event.cell(num_row, 8).value
+                r_list.append(ch_no + ' :\t' +total_p + '  ('+ get_id + '\t/ ' + get_boss + '\t/ ' + get_item + '\t/ ' + get_name + '\t/ ' + get_date + '\t/' + get_p + ' )')
                 await asyncio.sleep(1)
             r_list = '\n'.join(r_list)
             get_r = discord.Embed(title='EVENT POINT LIST',
-                                  description='TEAM\t: Total point\t (C-SC \t/ B-SC \t/ BLUE \t/ RED \t/ PURPLE)',
+                                  description='TEAM\t: Total point\t (C-SC \t/ B-SC \t/ BLUE \t/ 祝福 \t/ RED \t/ PURPLE)',
                                   color=discord.Colour.red())
             get_r.add_field(name='---------------------------------------------', value=str(r_list), inline=True)
-            await zatsu_channel.send(embed=get_r)
+            await a_channel.send(embed=get_r)
             return
+
 
 client.run(TOKEN)
