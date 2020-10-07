@@ -747,6 +747,7 @@ async def on_message(message):
                         return
                 else:
                     if pp >= 25 and dia >= 5000:
+                        await culc_channel.send('判定しました。結構かかる！')
                         ketsushi = dia * 0.03
                         bunpc = (dia - ketsushi * 3) / pp
                         if bunpc < 100:
