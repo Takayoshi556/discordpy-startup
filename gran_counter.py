@@ -670,7 +670,6 @@ async def on_message(message):
             cama_list = list()
             death_list = list()
             samurai_list = list()
-
             if pp < 10 and dia < 5000:
                 bunpa = dia / pp
                 if bunpa < 50:
@@ -744,6 +743,7 @@ async def on_message(message):
                             id_col = int(num) + int(12)
                             await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
                         #id_check = '\n'.join(id_check)
+                        await culc_channel.send('finish!')
                         return
                 else:
                     if pp >= 25 and dia >= 5000:
@@ -753,6 +753,7 @@ async def on_message(message):
                             meishubun1 = dia / 3
                             await culc_channel.send(str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row, 5).value) +'と取引を行って下さい。\n25人以上 / 分配 100dia未満なので全額血盟資金となります。\n３等分した' + str(
                                 math.floor(meishubun1)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。')
+                            await culc_channel.send('finish!')
                             return
                         else:
                             cama_num = 0
@@ -785,14 +786,17 @@ async def on_message(message):
                             bun_samurai = bunpc * samurai_num + ketsushi
 
                             await culc_channel.send(str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row, 5).value) +'と取引を行って下さい。\n25人以上 / 分配 100dia以上なので盟主が分配します。以下に従って盟主と取引して下さい。\n尚、血盟資金 ' + str(math.floor(ketsushi)) + 'diaも含まれています。\n\n<@477504935727071232>さん： ' + str(math.floor(bun_cama)) + ' diaを受取り、以下の方に ' + str(math.floor(bunpc)) + ' diaを分配下さい。\n' + str(cama_list) + '\n\n<@363032621845839892>さん： ' + str(math.floor(bun_samurai)) + ' diaを受取り、以下の方に ' + str(math.floor(bunpc)) + ' diaを分配下さい。\n' + str(samurai_list) + '\n\n<@290377448711782400>さん： ' + str(math.floor(bun_death)) + ' diaを受取り、以下の方に ' + str(math.floor(bunpc)) + ' diaを分配下さい。\n ' + str(death_list))
+                            await culc_channel.send('finish!')
                             return
 
                     elif pp >= 25 and dia < 5000:
+                        #print('ここまできたよ')
                         bunpd = dia / pp
                         if bunpd < 100:
                             meishubun2 = dia / 3
                             await culc_channel.send(str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row, 5).value) +'と取引を行って下さい。\n25人以上で分配が100dia/人 未満なので全額血盟資金となります。\n' + str(
-                                math.floor(meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n分配者手数料はありません。\n\nfinish!')
+                                math.floor(meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n\nfinish!')
+                            return 
                         else:
                             cama_num = 0
                             death_num = 0
@@ -800,6 +804,7 @@ async def on_message(message):
                             for num in range(pp):
                                 id_col = int(num) + int(12)
                                 id_clan_posi = worksheet_id.find(str(worksheet_list.cell(id_cell.row, id_col).value))
+                                await asyncio.sleep(3)
                                 if id_clan_posi.col == 13:
                                     cama_list.append('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
                                     cama_num = cama_num + 1
@@ -825,6 +830,7 @@ async def on_message(message):
                             cama_bun_total = cama_bun_total * 0.95
                             death_bun_total = death_bun_total * 0.95
                             samurai_bun_total = samurai_bun_total * 0.95
+                            await culc_channel.send('以下に分配対象者を列挙しますので、別のコマンド入力はやめてください。')
 
                             if cama_num >= 10:
                                 cama_ketsu = cama_bun_total * 0.03
