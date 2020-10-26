@@ -56,6 +56,8 @@ async def on_raw_reaction_add(payload):
 
     if payload.user_id == 689736979075825706:
         return
+    elif payload.user_id == 754892023613620316:
+        return
 
     elif payload.channel_id == 732658643740262553:
         channel = client.get_channel(722253361159864479)
@@ -108,6 +110,9 @@ async def on_raw_reaction_add(payload):
 async def on_raw_reaction_remove(payload):
     if payload.user_id == 689736979075825706:
         return
+    elif payload.user_id == 754892023613620316:
+        return
+
 
     elif payload.channel_id == 732658643740262553:
         channel = client.get_channel(722253361159864479)
