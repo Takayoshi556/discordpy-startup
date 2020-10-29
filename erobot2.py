@@ -85,7 +85,7 @@ async def on_raw_reaction_add(payload):
         msg = await culc_channel.fetch_message(msg_id)
         msg2 = str(msg.content)
         author = str(msg.author)
-        if author == str('えろぼっと#4774'):
+        if author == str('えろぼっと#4774') or author == str('えろぼっと弐号機#6410'):
             # print(msg2.startswith('<@'))
             # print(msg2.startswith('~~'))
             if msg2.startswith('<@'):
