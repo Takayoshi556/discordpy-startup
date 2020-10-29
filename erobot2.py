@@ -90,7 +90,7 @@ async def on_raw_reaction_add(payload):
             # print(msg2.startswith('~~'))
             if msg2.startswith('<@'):
                 await msg.edit(content="~~" + str(msg2) + "~~")
-                await msg.clear_reactions()
+                await msg2.clear_reactions()
             elif msg2.startswith('~~'):
                 msg1 = discord.utils.escape_markdown(msg.content)
                 # print(msg1)
@@ -98,7 +98,7 @@ async def on_raw_reaction_add(payload):
                 # print(msg1)
                 # msg1 = msg1.rstrip("~~")
                 await msg.edit(content=msg1)
-                await msg.clear_reactions()
+                await msg2.clear_reactions()
             else:
                 #print('りたーん！')
                 return
