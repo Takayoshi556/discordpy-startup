@@ -105,6 +105,19 @@ async def on_raw_reaction_add(payload):
         else:
 #            print('えろぼっと以外へのリアクション！')
             return
+    elif payload.channel_id == 722845189961416786:
+        worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
+        worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
+        worksheet_sell = gc.open_by_key(SPREADSHEET_KEY).worksheet('sell_list')
+        search_mid = payload.message_id
+        mid_cell = worksheet_sell.find(str(search_mid))
+        entry_num = worksheet_sell.cell(mid_cell.row, 10).value
+        entry_col = int(entry_num) + int(11)
+        worksheet_sell.update_cell(mid_cell.row, int(entry_col), str(payload.user_id))
+        
+    else:
+        return
+    
 
 @client.event
 async def on_raw_reaction_remove(payload):
@@ -144,7 +157,33 @@ async def on_raw_reaction_remove(payload):
                 worksheet_find.update_cell(mid_cell.row, int(del_col2), up_id)
                 del_col2 = del_col + num
             worksheet_find.update_cell(mid_cell.row, int(del_col2), str(''))
-
+            
+    elif payload.channel_id == 722845189961416786:
+        worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
+        worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
+        worksheet_sell = gc.open_by_key(SPREADSHEET_KEY).worksheet('sell_list')
+        search_mid = payload.message_id
+        mid_cell = worksheet_sell.find(str(search_mid))
+        col_list = worksheet_sell.row_values(mid_cell.row)
+        entry_num = worksheet_sell.cell(mid_cell.row, 10).value
+        del_col = int(col_list.index(str(payload.user_id))) + int(1)
+        if entry_num == 1:
+            worksheet_sell.update_cell(mid_cell.row, int(del_col), str(''))
+            return
+        else:
+            enum = int(del_col) - int(10)
+            entry = int(entry_num) - int(enum)
+            del_col2 = del_col
+            for num in range(1, int(entry)):
+                if not num == int(entry):
+                    right_col = int(del_col2) + 1
+                    up_id = worksheet_sell.cell(mid_cell.row, int(right_col)).value
+                    worksheet_sell.update_cell(mid_cell.row, int(del_col2), up_id)
+                del_col2 = del_col + num
+            worksheet_sell.update_cell(mid_cell.row, int(del_col2), str(''))
+    else:
+        return
+            
     # elif payload.channel_id == 722253470023024640:
     #     msg_id = payload.message_id
     #     test_channel = client.get_channel(722253470023024640)
@@ -164,6 +203,7 @@ async def on_message(message):
     list_channel = client.get_channel(743314066713477251)
     regi_channel = client.get_channel(744727455293767711)
     test_channel = client.get_channel(722253470023024640)
+    sell_channel = client.get_channel(722845189961416786)
 
     if message.author == client.user:
         return
@@ -923,6 +963,107 @@ async def on_message(message):
 
                     else:
                         await culc_channel.send('えろてろまで問い合わせを。')
+
+    #########高額レア販売システム#########
+    elif message.content.startswith('sell'):
+        worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
+        worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
+        worksheet_sell = gc.open_by_key(SPREADSHEET_KEY).worksheet('sell_list')
+        id_count = worksheet_id.cell(6, 8).value
+        await sell_channel.send('初回販売品\n')
+        for num in range(int(id_count)):
+            sell_row = 3 + num
+            count_checker = worksheet_sell.cell(sell_row, 8).value
+            if int(count_checker) == 1:
+                id = worksheet_sell.cell(sell_row, 1).value
+                date = worksheet_sell.cell(sell_row, 6).value
+                item = worksheet_sell.cell(sell_row, 3).value
+                owner = worksheet_sell.cell(sell_row, 5).value
+                price = worksheet_sell.cell(sell_row, 7).value
+                sellm = discord.Embed(title='" ' + str(id) + ' : ' + str(item), description='Date: ' + str(date) + '\nOwner: ' + str(owner) + '\nPrice: ' + str(price), color=discord.Colour.red())
+                msg = await sell_channel.send(embed=sellm)
+                emoji1 = '\U0001F947'
+                await msg.add_reaction(emoji1)
+                worksheet_sell.update_cell(sell_row, 9, str(msg.id))
+                await sell_channel.send('-------------------------------')
+
+        await sell_channel.send('====================')
+        await sell_channel.send('第二回販売品\n')
+        for num in range(int(id_count)):
+            sell_row = 3 + num
+            count_checker = worksheet_sell.cell(sell_row, 8).value
+            if int(count_checker) == 2:
+                id = worksheet_sell.cell(sell_row, 1).value
+                date = worksheet_sell.cell(sell_row, 6).value
+                item = worksheet_sell.cell(sell_row, 3).value
+                owner = worksheet_sell.cell(sell_row, 5).value
+                price = worksheet_sell.cell(sell_row, 7).value
+                sellm = discord.Embed(title='" ' + str(id) + ' : ' + str(item), description='Date: ' + str(date) + '\nOwner: ' + str(owner) + '\nPrice: ' + str(price), color=discord.Colour.red())
+                msg = await sell_channel.send(embed=sellm)
+                emoji1 = '\U0001F947'
+                await msg.add_reaction(emoji1)
+                worksheet_sell.update_cell(sell_row, 9, str(msg.id))
+                await sell_channel.send('-------------------------------')
+
+        await sell_channel.send('====================')
+        await sell_channel.send('第三回販売品\n')
+        for num in range(int(id_count)):
+            sell_row = 3 + num
+            count_checker = worksheet_sell.cell(sell_row, 8).value
+            if int(count_checker) == 3:
+                id = worksheet_sell.cell(sell_row, 1).value
+                date = worksheet_sell.cell(sell_row, 6).value
+                item = worksheet_sell.cell(sell_row, 3).value
+                owner = worksheet_sell.cell(sell_row, 5).value
+                price = worksheet_sell.cell(sell_row, 7).value
+                sellm = discord.Embed(title='" ' + str(id) + ' : ' + str(item), description='Date: ' + str(date) + '\nOwner: ' + str(owner) + '\nPrice: ' + str(price), color=discord.Colour.red())
+                msg = await sell_channel.send(embed=sellm)
+                emoji1 = '\U0001F947'
+                await msg.add_reaction(emoji1)
+                worksheet_sell.update_cell(sell_row, 9, str(msg.id))
+                await sell_channel.send('-------------------------------')
+
+
+    elif message.content.startswith('soldout'):
+        worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
+        worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
+        worksheet_sell = gc.open_by_key(SPREADSHEET_KEY).worksheet('sell_list')
+        check_mark = worksheet_sell.cell(3, 4).value
+        if not int(check_mark) == 1:
+            return
+        id_count = worksheet_id.cell(6, 8).value
+        await sell_channel.send('購入者が確定しました。以下一覧を参照の上、購入者は取引を開始して下さい。')
+        for num in range(int(id_count)):
+            sell_row = 3 + num
+            uid_count = worksheet_sell.cell(sell_row, 10).value
+            if int(uid_count) == 1:
+                id = worksheet_sell.cell(sell_row, 1).value
+                item = worksheet_sell.cell(sell_row, 3).value
+                owner = worksheet_sell.cell(sell_row, 11).value
+                price = worksheet_sell.cell(sell_row, 7).value
+                sellm = discord.Embed(title='" ' + str(id) + ' : ' + str(item),
+                                  description='購入者: ' + '<@' + str(owner) + '>\nPrice: ' + str(
+                                      price), color=discord.Colour.red())
+                msg = await sell_channel.send(embed=sellm)
+                drop_list_id_location = worksheet_find.find(str(id))
+                worksheet_find.update_cell(drop_list_id_location.row, 11, str(owner))
+
+            elif int(uid_count) <= 2:
+                id = worksheet_sell.cell(sell_row, 1).value
+                item = worksheet_sell.cell(sell_row, 3).value
+                price = worksheet_sell.cell(sell_row, 7).value
+                dice = random.randint(1, int(uid_count))
+                winner = 10 + int(dice)
+                owner = worksheet_sell.cell(sell_row, int(winner)).value
+                sellm = discord.Embed(title='" ' + str(id) + ' : ' + str(item),
+                                  description='購入者(抽選結果): ' + '<@' + str(owner) + '>\nPrice: ' + str(
+                                      price), color=discord.Colour.red())
+                msg = await sell_channel.send(embed=sellm)
+                drop_list_id_location = worksheet_find.find(str(id))
+                worksheet_find.update_cell(drop_list_id_location.row, 11, str(owner))
+
+        await sell_channel.send('finish')
+
 
     # *****************以下はじゃんけんBOT*******************
 
