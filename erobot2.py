@@ -886,14 +886,14 @@ async def on_message(message):
 
                                 if death_num >= 10:
                                     death_ketsu = death_bun_total * 0.03
-                                    death_bun = (death_bun_total - death_ketsu) / cama_num
+                                    death_bun = (death_bun_total - death_ketsu) / death_num
                                     await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
                                         math.floor(death_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
                                         math.floor(death_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(death_list))
 
                                     if samurai_num >= 10:
                                         samurai_ketsu = samurai_bun_total * 0.03
-                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / cama_num
+                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
                                         await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
                                             math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
                                             math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
@@ -909,7 +909,7 @@ async def on_message(message):
                                         math.floor(death_bun)) + ' dia を渡してください。\n' + str(death_list))
                                     if samurai_num >= 10:
                                         samurai_ketsu = samurai_bun_total * 0.03
-                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / cama_num
+                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
                                         await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
                                             math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
                                             math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
@@ -927,14 +927,14 @@ async def on_message(message):
                                     math.floor(cama_bun)) + ' dia を渡してください。\n' + str(cama_list))
                                 if death_num >= 10:
                                     death_ketsu = death_bun_total * 0.03
-                                    death_bun = (death_bun_total - death_ketsu) / cama_num
+                                    death_bun = (death_bun_total - death_ketsu) / death_num
                                     await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
                                         math.floor(death_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
                                         math.floor(death_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(death_list))
 
                                     if samurai_num >= 10:
                                         samurai_ketsu = samurai_bun_total * 0.03
-                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / cama_num
+                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
                                         await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
                                             math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
                                             math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
@@ -950,7 +950,7 @@ async def on_message(message):
                                         math.floor(death_bun)) + ' dia を渡してください。\n' + str(death_list))
                                     if samurai_num >= 10:
                                         samurai_ketsu = samurai_bun_total * 0.03
-                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / cama_num
+                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
                                         await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
                                             math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
                                             math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
