@@ -966,8 +966,8 @@ async def on_message(message):
 
 #########高額レア販売システム#########
     elif message.content.startswith('sell'):
-        if not message.channel.id == 363032621845839892 or message.channel.id == 689731790935425034:
-            return
+#        if not message.channel.id == 363032621845839892 or message.channel.id == 689731790935425034:
+#            return
         worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
         worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
         worksheet_sell = gc.open_by_key(SPREADSHEET_KEY).worksheet('sell_list')
