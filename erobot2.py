@@ -964,13 +964,15 @@ async def on_message(message):
                     else:
                         await culc_channel.send('えろてろまで問い合わせを。')
 
-    #########高額レア販売システム#########
+#########高額レア販売システム#########
     elif message.content.startswith('sell'):
+        if not message.channel.id == 363032621845839892 or message.channel.id == 689731790935425034:
+            return
         worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
         worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
         worksheet_sell = gc.open_by_key(SPREADSHEET_KEY).worksheet('sell_list')
         id_count = worksheet_id.cell(6, 8).value
-        await sell_channel.send('初回販売品\n')
+        await sell_channel.send('初回販売品\n参加者50% OFF, 未参加者20% OFF\n')
         for num in range(int(id_count)):
             sell_row = 3 + num
             count_checker = worksheet_sell.cell(sell_row, 8).value
@@ -988,7 +990,7 @@ async def on_message(message):
                 await sell_channel.send('-------------------------------')
 
         await sell_channel.send('====================')
-        await sell_channel.send('第二回販売品\n')
+        await sell_channel.send('第二回販売品\n参加者、未参加者共に50%OFF\n')
         for num in range(int(id_count)):
             sell_row = 3 + num
             count_checker = worksheet_sell.cell(sell_row, 8).value
@@ -1006,7 +1008,7 @@ async def on_message(message):
                 await sell_channel.send('-------------------------------')
 
         await sell_channel.send('====================')
-        await sell_channel.send('第三回販売品\n')
+        await sell_channel.send('第三回販売品\n参加者、未参加者共に50%OFF\n購入制限無し（購入制限中の方でも購入可）\n')
         for num in range(int(id_count)):
             sell_row = 3 + num
             count_checker = worksheet_sell.cell(sell_row, 8).value
@@ -1024,43 +1026,23 @@ async def on_message(message):
                 await sell_channel.send('-------------------------------')
 
 
-    elif message.content.startswith('soldout'):
-        worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
-        worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
-        worksheet_sell = gc.open_by_key(SPREADSHEET_KEY).worksheet('sell_list')
-        check_mark = worksheet_sell.cell(3, 4).value
-        if not int(check_mark) == 1:
-            return
-        id_count = worksheet_id.cell(6, 8).value
-        await sell_channel.send('購入者が確定しました。以下一覧を参照の上、購入者は取引を開始して下さい。')
+        await sell_channel.send('====================')
+        await sell_channel.send('第四回販売品\n参加者、未参加者共に50%OFF\n購入制限無し（購入制限中の方でも購入可）\n赤レア制限の範囲外（第四回販売から購入しても、次回の赤レア購入に制限がかかりません）\n初回～第三回の販売とリアクション並行可（ただし、落札時には他メンバー優先）')
         for num in range(int(id_count)):
             sell_row = 3 + num
-            uid_count = worksheet_sell.cell(sell_row, 10).value
-            if int(uid_count) == 1:
+            count_checker = worksheet_sell.cell(sell_row, 8).value
+            if int(count_checker) == 4:
                 id = worksheet_sell.cell(sell_row, 1).value
+                date = worksheet_sell.cell(sell_row, 6).value
                 item = worksheet_sell.cell(sell_row, 3).value
-                owner = worksheet_sell.cell(sell_row, 11).value
+                owner = worksheet_sell.cell(sell_row, 5).value
                 price = worksheet_sell.cell(sell_row, 7).value
-                sellm = discord.Embed(title='" ' + str(id) + ' : ' + str(item),
-                                  description='購入者: ' + '<@' + str(owner) + '>\nPrice: ' + str(
-                                      price), color=discord.Colour.red())
+                sellm = discord.Embed(title='" ' + str(id) + ' : ' + str(item), description='Date: ' + str(date) + '\nOwner: ' + str(owner) + '\nPrice: ' + str(price), color=discord.Colour.red())
                 msg = await sell_channel.send(embed=sellm)
-                drop_list_id_location = worksheet_find.find(str(id))
-                worksheet_find.update_cell(drop_list_id_location.row, 11, str(owner))
-
-            elif int(uid_count) <= 2:
-                id = worksheet_sell.cell(sell_row, 1).value
-                item = worksheet_sell.cell(sell_row, 3).value
-                price = worksheet_sell.cell(sell_row, 7).value
-                dice = random.randint(1, int(uid_count))
-                winner = 10 + int(dice)
-                owner = worksheet_sell.cell(sell_row, int(winner)).value
-                sellm = discord.Embed(title='" ' + str(id) + ' : ' + str(item),
-                                  description='購入者(抽選結果): ' + '<@' + str(owner) + '>\nPrice: ' + str(
-                                      price), color=discord.Colour.red())
-                msg = await sell_channel.send(embed=sellm)
-                drop_list_id_location = worksheet_find.find(str(id))
-                worksheet_find.update_cell(drop_list_id_location.row, 11, str(owner))
+                emoji1 = '\U0001F947'
+                await msg.add_reaction(emoji1)
+                worksheet_sell.update_cell(sell_row, 9, str(msg.id))
+                await sell_channel.send('-------------------------------')
 
         await sell_channel.send('finish')
 
