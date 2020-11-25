@@ -63,7 +63,9 @@ async def on_raw_reaction_add(payload):
         channel = client.get_channel(722253361159864479)
         now = dt.now()
         now1 = str(now)
-        await channel.send('Date&Time:\n' + now1 + '\nmessage channel & id\n' + str(payload.channel_id) + '\nmessage-id\n' + str(payload.message_id) + '\nreaction-user-id\r\n' + str(payload.user_id) + '\n_')
+        await channel.send(
+            'Date&Time:\n' + now1 + '\nmessage channel & id\n' + str(payload.channel_id) + '\nmessage-id\n' + str(
+                payload.message_id) + '\nreaction-user-id\r\n' + str(payload.user_id) + '\n_')
 
     elif payload.channel_id == 744727455293767711:
         worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
@@ -71,7 +73,8 @@ async def on_raw_reaction_add(payload):
         mid_cell = worksheet_find.find(str(search_mid))
         entry1_id = worksheet_find.cell(mid_cell.row, 12).value
         if str(entry1_id) == str(payload.user_id):
-            msg = await regi_channel.send('拾得者（登録した人）はリアクションは不要なので解除して下さい。\n他に修正が必要な場合は"えろてろ"までご連絡をお願いします。\n本メッセージは10秒後に自動で削除されます。')
+            msg = await regi_channel.send(
+                '拾得者（登録した人）はリアクションは不要なので解除して下さい。\n他に修正が必要な場合は"えろてろ"までご連絡をお願いします。\n本メッセージは10秒後に自動で削除されます。')
             await asyncio.sleep(3)
             await msg.delete()
         else:
@@ -81,7 +84,7 @@ async def on_raw_reaction_add(payload):
 
     elif payload.channel_id == 740355050182017135:
         msg_id = payload.message_id
-#        test_channel = client.get_channel(722253470023024640)
+        #        test_channel = client.get_channel(722253470023024640)
         msg = await culc_channel.fetch_message(msg_id)
         msg2 = str(msg.content)
         author = str(msg.author)
@@ -100,10 +103,10 @@ async def on_raw_reaction_add(payload):
                 await msg.edit(content=msg1)
                 await msg.clear_reactions()
             else:
-                #print('りたーん！')
+                # print('りたーん！')
                 return
         else:
-#            print('えろぼっと以外へのリアクション！')
+            #            print('えろぼっと以外へのリアクション！')
             return
     elif payload.channel_id == 722845189961416786:
         worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
@@ -114,10 +117,9 @@ async def on_raw_reaction_add(payload):
         entry_num = worksheet_sell.cell(mid_cell.row, 10).value
         entry_col = int(entry_num) + int(11)
         worksheet_sell.update_cell(mid_cell.row, int(entry_col), str(payload.user_id))
-        
+
     else:
         return
-    
 
 @client.event
 async def on_raw_reaction_remove(payload):
@@ -131,7 +133,9 @@ async def on_raw_reaction_remove(payload):
         channel = client.get_channel(722253361159864479)
         now2 = dt.now()
         now3 = str(now2)
-        await channel.send('Date&Time:\n' + now3 + '\nmessage channel\n' + str(payload.channel_id) + '\nmessage-id\n' + str(payload.message_id) + '\nreaction-user-id\r\n' + str(payload.user_id) + 'del\n_')
+        await channel.send(
+            'Date&Time:\n' + now3 + '\nmessage channel\n' + str(payload.channel_id) + '\nmessage-id\n' + str(
+                payload.message_id) + '\nreaction-user-id\r\n' + str(payload.user_id) + 'del\n_')
 
     elif payload.channel_id == 744727455293767711:
         worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
@@ -142,7 +146,7 @@ async def on_raw_reaction_remove(payload):
         entry1_id = worksheet_find.cell(mid_cell.row, 12).value
         del_col = int(col_list.index(str(payload.user_id))) + int(1)
         if str(entry1_id) == str(payload.user_id):
-            #print('同じだよ')
+            # print('同じだよ')
             return
         elif entry_num == 1:
             worksheet_find.update_cell(mid_cell.row, int(del_col), str(''))
@@ -157,7 +161,7 @@ async def on_raw_reaction_remove(payload):
                 worksheet_find.update_cell(mid_cell.row, int(del_col2), up_id)
                 del_col2 = del_col + num
             worksheet_find.update_cell(mid_cell.row, int(del_col2), str(''))
-            
+
     elif payload.channel_id == 722845189961416786:
         worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
         worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
@@ -183,7 +187,7 @@ async def on_raw_reaction_remove(payload):
             worksheet_sell.update_cell(mid_cell.row, int(del_col2), str(''))
     else:
         return
-            
+
     # elif payload.channel_id == 722253470023024640:
     #     msg_id = payload.message_id
     #     test_channel = client.get_channel(722253470023024640)
@@ -194,6 +198,7 @@ async def on_raw_reaction_remove(payload):
     #     print(msg1)
     #     #msg1 = msg1.rstrip("~~")
     #     await msg.edit(content= msg1)
+
 
 @client.event
 async def on_message(message):
@@ -720,327 +725,729 @@ async def on_message(message):
             worksheet_list.update_cell(id_cell.row, 7, str('finish'))  # 分配実行フラグ変更
             worksheet_list.update_cell(id_cell.row, 10, str(rbun_dia))  # 分配ダイア入力
             #            worksheet_list.update_cell(id_cell.row, 11, str(rbun_buyer))   # 購入者入力
+            buyer_id = worksheet_list.cell(id_cell.row, 11).value
             pp = int(worksheet_list.cell(id_cell.row, 9).value)
             dia = int(rbun_dia)
             id_check = list()
             cama_list = list()
             death_list = list()
             samurai_list = list()
-            if pp < 10 and dia < 5000:
-                bunpa = dia / pp
-                if bunpa < 50:
-                    dice = random.randint(1, pp)  # サイコロを振る。出る目を指定。
-                    dice_a = int(dice) + int(11)
-                    ran_men = worksheet_list.cell(id_cell.row, int(dice_a)).value
-
-                    await culc_channel.send(
-                        str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                            worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れたので分配を行います。\n' + str(
-                            worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
-                            math.floor(bunpa)) + 'dia/人)なので、抽選になります。\n抽選の結果、<@' + str(ran_men) + '> が当選！\n' + str(
-                            dia) + ' diaの取引をお願いします。')
-                    return
-                else:
-                    await culc_channel.send(
-                        str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                            worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
-                            dia) + ' diaで売れました。\nメンションされている方々は以下に従い' + str(
-                            worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配：' + str(
-                            math.floor(bunpa)) + 'dia\n対象者')
-                    for num in range(pp):
-                        id_col = int(num) + int(12)
-                        await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
-                        await asyncio.sleep(2)
-                    #                    id_check = '\n'.join(id_check)
-                    await culc_channel.send('finish')
-                    return
-            elif pp < 10 and dia >= 5000:
-                ketsu = dia * 0.03
-                bunpb = (dia - ketsu * 3) / pp
-                await culc_channel.send(str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
-                    dia) + ' diaで売れました。\nメンションされている方々は以下に従い' + str(
-                    worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n血盟資金として ' + str(
-                    math.floor(ketsu)) + 'diaを各盟主へ渡してください。\nメンションされている方々は ' + str(math.floor(
-                    bunpb)) + 'diaで出品して下さい。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n\n分配\n')
-                for num in range(pp):
-                    id_col = int(num) + int(12)
-                    await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
-                    await asyncio.sleep(2)
-                    #                    id_check = '\n'.join(id_check)
-                await culc_channel.send('finish')
-                return
-            else:
-                if 10 <= pp < 25 and dia >= 5000:
-                    ketsu = dia * 0.03
-                    tema = dia * 0.05
-                    if tema < 500:
-                        bunpb = (dia - ketsu * 3 - tema) / pp
-                        await culc_channel.send(
-                            str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                                worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(
-                                worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n血盟資金:' + str(
-                                math.floor(ketsu)) + 'diaを各盟主へ渡してください。\nメンションされている方々は ' + str(
-                                math.floor(bunpb)) + 'diaで出品して下さい。\nちなみに手間賃' + str(math.floor(
-                                tema)) + 'diaです。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n\n分配\n')
-                        for num in range(pp):
-                            id_col = int(num) + int(12)
-                            await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
-                            await asyncio.sleep(2)
-                            #                    id_check = '\n'.join(id_check)
-                        await culc_channel.send('finish')
-                        # id_check = '\n'.join(id_check)
-
-                    elif tema >= 500:
-                        tema = 500
-                        bunpb = (dia - ketsu * 3 - tema) / pp
-                        await culc_channel.send(
-                            str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                                worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(
-                                worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n血盟資金:' + str(
-                                math.floor(ketsu)) + 'diaを各盟主へ渡してください。\nメンションされている方々は ' + str(
-                                math.floor(bunpb)) + 'diaで出品して下さい。\nちなみに手間賃は上限の' + str(math.floor(
-                                tema)) + 'diaです。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n\n分配\n')
-                        for num in range(pp):
-                            id_col = int(num) + int(12)
-                            await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
-                        # id_check = '\n'.join(id_check)
-                        await culc_channel.send('finish!')
-                    else:
-                        await culc_channel.send('えろてろまで問い合わせを。')
-                    return
-
-                elif 10 <= pp < 25 and dia < 5000:
-                    tema = dia * 0.05
-                    bunpb = (dia - tema) / pp
-                    if bunpb < 50:
+            if buyer_id == '-':
+                if pp < 10 and dia < 5000:
+                    bunpa = dia / pp
+                    if bunpa < 50:
                         dice = random.randint(1, pp)  # サイコロを振る。出る目を指定。
                         dice_a = int(dice) + int(11)
                         ran_men = worksheet_list.cell(id_cell.row, int(dice_a)).value
                         await culc_channel.send(
                             str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                                worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(
+                                worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れたので分配を行います。\n' + str(
                                 worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
-                                math.floor(bunpb)) + 'dia/人)なので、抽選を行います。\n...抽選の結果、<@' + str(
-                                ran_men) + '> が当選！\n' + str(dia) + ' diaの取引をお願いします。')
+                                math.floor(bunpa)) + 'dia/人)なので、抽選になります。\n抽選の結果、<@' + str(ran_men) + '> が当選！\n' + str(
+                                dia) + ' diaの取引をお願いします。')
                         return
                     else:
-
                         await culc_channel.send(
                             str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                                worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(
-                                worksheet_list.cell(id_cell.row,
-                                                    5).value) + 'と取引を行って下さい。\n10人以上, 5000dia未満なので以下となります。\nメンションされている方々は ' + str(
-                                math.floor(bunpb)) + 'diaで出品して下さい。\n分配者手数料は' + str(
-                                math.floor(tema)) + 'diaです。\n血盟資金はありません。\n')
+                                worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                dia) + ' diaで売れました。\nメンションされている方々は以下に従い' + str(
+                                worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配：' + str(
+                                math.floor(bunpa)) + 'dia\n対象者')
                         for num in range(pp):
                             id_col = int(num) + int(12)
                             await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
-                        # id_check = '\n'.join(id_check)
-                        await culc_channel.send('finish!')
+                            await asyncio.sleep(2)
+                        #                    id_check = '\n'.join(id_check)
+                        await culc_channel.send('finish')
                         return
+                elif pp < 10 and dia >= 5000:
+                    ketsu = dia * 0.03
+                    bunpb = (dia - ketsu * 3) / pp
+                    await culc_channel.send(str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                        worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                        dia) + ' diaで売れました。\nメンションされている方々は以下に従い' + str(
+                        worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n血盟資金として ' + str(
+                        math.floor(ketsu)) + 'diaを各盟主へ渡してください。\nメンションされている方々は ' + str(math.floor(
+                        bunpb)) + 'diaで出品して下さい。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n\n分配\n')
+                    for num in range(pp):
+                        id_col = int(num) + int(12)
+                        await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
+                        await asyncio.sleep(2)
+                        #                    id_check = '\n'.join(id_check)
+                    await culc_channel.send('finish')
+                    return
                 else:
-                    if pp >= 25 and dia >= 5000:
-                        ketsushi = dia * 0.03
-                        bunpc = (dia - ketsushi * 3) / pp
-                        if bunpc < 100:
-                            meishubun1 = dia / 3
+                    if 10 <= pp < 25 and dia >= 5000:
+                        ketsu = dia * 0.03
+                        tema = dia * 0.05
+                        if tema < 500:
+                            bunpb = (dia - ketsu * 3 - tema) / pp
                             await culc_channel.send(
                                 str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
-                                    dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row,
-                                                                                     5).value) + 'と取引を行って下さい。\n25人以上 / 分配 100dia未満なので全額血盟資金となります。\n３等分した' + str(
-                                    math.floor(
-                                        meishubun1)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。')
-                            await culc_channel.send('finish!')
-                            return
-                        else:
-                            cama_num = 0
-                            death_num = 0
-                            samurai_num = 0
-                            await culc_channel.send('人数が多いため処理に数分時間がかかる場合があります。しばらくお待ちください。')
+                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(
+                                    worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n血盟資金:' + str(
+                                    math.floor(ketsu)) + 'diaを各盟主へ渡してください。\nメンションされている方々は ' + str(
+                                    math.floor(bunpb)) + 'diaで出品して下さい。\nちなみに手間賃' + str(math.floor(
+                                    tema)) + 'diaです。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n\n分配\n')
                             for num in range(pp):
                                 id_col = int(num) + int(12)
-                                id_clan_posi = worksheet_id.find(str(worksheet_list.cell(id_cell.row, id_col).value))
-                                # print(id_clan_posi.col)
-                                await asyncio.sleep(3)
+                                await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
+                                await asyncio.sleep(2)
+                                #                    id_check = '\n'.join(id_check)
+                            await culc_channel.send('finish')
+                            # id_check = '\n'.join(id_check)
 
-                                if id_clan_posi.col == 13:
-                                    #   print('カマ')
-                                    cama_list.append('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
-                                    cama_num = cama_num + 1
-                                elif id_clan_posi.col == 16:
-                                    #   print('デス')
-                                    death_list.append('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
-                                    death_num = death_num + 1
-                                elif id_clan_posi.col == 19:
-                                    #   print('サムライ')
-                                    samurai_list.append(
-                                        '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
-                                    samurai_num = samurai_num + 1
-                            cama_list = '\n'.join(cama_list)
-                            death_list = '\n'.join(death_list)
-                            samurai_list = '\n'.join(samurai_list)
-                            bun_cama = bunpc * cama_num + ketsushi
-                            bun_death = bunpc * death_num + ketsushi
-                            bun_samurai = bunpc * samurai_num + ketsushi
-
+                        elif tema >= 500:
+                            tema = 500
+                            bunpb = (dia - ketsu * 3 - tema) / pp
                             await culc_channel.send(
                                 str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
-                                    dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row,
-                                                                                     5).value) + 'と取引を行って下さい。\n25人以上 / 分配 100dia以上なので盟主が分配します。以下に従って盟主と取引して下さい。\n尚、血盟資金 ' + str(
-                                    math.floor(ketsushi)) + 'diaも含まれています。\n\n<@477504935727071232>さん： ' + str(
-                                    math.floor(bun_cama)) + ' diaを受取り、以下の方に ' + str(
-                                    math.floor(bunpc)) + ' diaを分配下さい。\n' + str(
-                                    cama_list) + '\n\n<@363032621845839892>さん： ' + str(
-                                    math.floor(bun_samurai)) + ' diaを受取り、以下の方に ' + str(
-                                    math.floor(bunpc)) + ' diaを分配下さい。\n' + str(
-                                    samurai_list) + '\n\n<@290377448711782400>さん： ' + str(
-                                    math.floor(bun_death)) + ' diaを受取り、以下の方に ' + str(
-                                    math.floor(bunpc)) + ' diaを分配下さい。\n ' + str(death_list))
-                            await culc_channel.send('finish!')
-                            return
-
-                    elif pp >= 25 and dia < 5000:
-                        # print('ここまできたよ')
-                        bunpd = dia / pp
-                        if bunpd < 100:
-                            meishubun2 = dia / 3
-                            await culc_channel.send(
-                                str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
-                                    dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row,
-                                                                                     5).value) + 'と取引を行って下さい。\n25人以上で分配が100dia/人 未満なので全額血盟資金となります。\n' + str(
-                                    math.floor(
-                                        meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n\nfinish!')
-                            return
-                        else:
-                            cama_num = 0
-                            death_num = 0
-                            samurai_num = 0
+                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(
+                                    worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n血盟資金:' + str(
+                                    math.floor(ketsu)) + 'diaを各盟主へ渡してください。\nメンションされている方々は ' + str(
+                                    math.floor(bunpb)) + 'diaで出品して下さい。\nちなみに手間賃は上限の' + str(math.floor(
+                                    tema)) + 'diaです。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n\n分配\n')
                             for num in range(pp):
                                 id_col = int(num) + int(12)
-                                id_clan_posi = worksheet_id.find(str(worksheet_list.cell(id_cell.row, id_col).value))
-                                await asyncio.sleep(3)
-                                if id_clan_posi.col == 13:
-                                    cama_list.append('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
-                                    cama_num = cama_num + 1
-                                elif id_clan_posi.col == 16:
-                                    death_list.append(
-                                        '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
-                                    death_num = death_num + 1
-                                elif id_clan_posi.col == 19:
-                                    samurai_list.append(
-                                        '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
-                                    samurai_num = samurai_num + 1
-                            cama_list = '\n'.join(cama_list)
-                            death_list = '\n'.join(death_list)
-                            samurai_list = '\n'.join(samurai_list)
+                                await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
+                            # id_check = '\n'.join(id_check)
+                            await culc_channel.send('finish!')
+                        else:
+                            await culc_channel.send('えろてろまで問い合わせを。')
+                        return
+
+                    elif 10 <= pp < 25 and dia < 5000:
+                        tema = dia * 0.05
+                        bunpb = (dia - tema) / pp
+                        if bunpb < 50:
+                            dice = random.randint(1, pp)  # サイコロを振る。出る目を指定。
+                            dice_a = int(dice) + int(11)
+                            ran_men = worksheet_list.cell(id_cell.row, int(dice_a)).value
                             await culc_channel.send(
                                 str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
-                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
-                                    dia) + ' diaで売れました。\n25人以上 / 分配 100dia以上なので盟主が分配します。以下に従って盟主と取引して下さい。')
-                            cama_bun_total = bunpd * cama_num
-                            death_bun_total = bunpd * death_num
-                            samurai_bun_total = bunpd * samurai_num
+                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(
+                                    worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
+                                    math.floor(bunpb)) + 'dia/人)なので、抽選を行います。\n...抽選の結果、<@' + str(
+                                    ran_men) + '> が当選！\n' + str(dia) + ' diaの取引をお願いします。')
+                            return
+                        else:
                             await culc_channel.send(
-                                '<@477504935727071232>さんに' + str(math.floor(cama_bun_total)) + ' dia を渡してください。')
-                            await culc_channel.send(
-                                '<@363032621845839892>さんに' + str(math.floor(samurai_bun_total)) + ' dia を渡してください。')
-                            await culc_channel.send(
-                                '<@290377448711782400>さんに' + str(math.floor(death_bun_total)) + ' dia を渡してください。')
-                            cama_bun_total = cama_bun_total * 0.95
-                            death_bun_total = death_bun_total * 0.95
-                            samurai_bun_total = samurai_bun_total * 0.95
-                            await culc_channel.send('以下に分配対象者を列挙しますので、別のコマンド入力はやめてください。')
-
-                            if cama_num >= 10:
-                                cama_ketsu = cama_bun_total * 0.03
-                                cama_bun = (cama_bun_total - cama_ketsu) / cama_num
-                                await culc_channel.send('<@477504935727071232>さんは以下の方々に' + str(
-                                    math.floor(cama_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
-                                    math.floor(cama_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(cama_list))
-
-                                if death_num >= 10:
-                                    death_ketsu = death_bun_total * 0.03
-                                    death_bun = (death_bun_total - death_ketsu) / death_num
-                                    await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
-                                        math.floor(death_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
-                                        math.floor(death_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(death_list))
-
-                                    if samurai_num >= 10:
-                                        samurai_ketsu = samurai_bun_total * 0.03
-                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
-                                        await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
-                                            math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
-                                            math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
-                                    else:
-                                        samurai_bun_total = bunpd * samurai_num
-                                        samurai_bun = samurai_bun_total / samurai_num
-                                        await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
-                                            math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
-                                else:
-                                    death_bun_total = bunpd * death_num
-                                    death_bun = death_bun_total / death_num
-                                    await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
-                                        math.floor(death_bun)) + ' dia を渡してください。\n' + str(death_list))
-                                    if samurai_num >= 10:
-                                        samurai_ketsu = samurai_bun_total * 0.03
-                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
-                                        await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
-                                            math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
-                                            math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
-                                    else:
-                                        samurai_bun_total = bunpd * samurai_num
-                                        samurai_bun = samurai_bun_total / samurai_num
-                                        await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
-                                            math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
+                                str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(
+                                    worksheet_list.cell(id_cell.row,
+                                                        5).value) + 'と取引を行って下さい。\n10人以上, 5000dia未満なので以下となります。\nメンションされている方々は ' + str(
+                                    math.floor(bunpb)) + 'diaで出品して下さい。\n分配者手数料は' + str(
+                                    math.floor(tema)) + 'diaです。\n血盟資金はありません。\n')
+                            for num in range(pp):
+                                id_col = int(num) + int(12)
+                                await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
+                            # id_check = '\n'.join(id_check)
+                            await culc_channel.send('finish!')
+                            return
+                    else:
+                        if pp >= 25 and dia >= 5000:
+                            ketsushi = dia * 0.03
+                            bunpc = (dia - ketsushi * 3) / pp
+                            if bunpc < 100:
+                                meishubun1 = dia / 3
+                                await culc_channel.send(
+                                    str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                        worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                        dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row,
+                                                                                         5).value) + 'と取引を行って下さい。\n25人以上 / 分配 100dia未満なので全額血盟資金となります。\n３等分した' + str(
+                                        math.floor(
+                                            meishubun1)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。')
+                                await culc_channel.send('finish!')
+                                return
                             else:
+                                cama_num = 0
+                                death_num = 0
+                                samurai_num = 0
+                                await culc_channel.send('人数が多いため処理に数分時間がかかる場合があります。しばらくお待ちください。')
+                                for num in range(pp):
+                                    id_col = int(num) + int(12)
+                                    id_clan_posi = worksheet_id.find(str(worksheet_list.cell(id_cell.row, id_col).value))
+                                    # print(id_clan_posi.col)
+                                    await asyncio.sleep(3)
+
+                                    if id_clan_posi.col == 13:
+                                        #   print('カマ')
+                                        cama_list.append('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
+                                        cama_num = cama_num + 1
+                                    elif id_clan_posi.col == 16:
+                                        #   print('デス')
+                                        death_list.append('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
+                                        death_num = death_num + 1
+                                    elif id_clan_posi.col == 19:
+                                        #   print('サムライ')
+                                        samurai_list.append(
+                                            '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
+                                        samurai_num = samurai_num + 1
+                                cama_list = '\n'.join(cama_list)
+                                death_list = '\n'.join(death_list)
+                                samurai_list = '\n'.join(samurai_list)
+                                bun_cama = bunpc * cama_num + ketsushi
+                                bun_death = bunpc * death_num + ketsushi
+                                bun_samurai = bunpc * samurai_num + ketsushi
+
+                                await culc_channel.send(
+                                    str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                        worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                        dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row,
+                                                                                         5).value) + 'と取引を行って下さい。\n25人以上 / 分配 100dia以上なので盟主が分配します。以下に従って盟主と取引して下さい。\n尚、血盟資金 ' + str(
+                                        math.floor(ketsushi)) + 'diaも含まれています。\n\n<@477504935727071232>さん： ' + str(
+                                        math.floor(bun_cama)) + ' diaを受取り、以下の方に ' + str(
+                                        math.floor(bunpc)) + ' diaを分配下さい。\n' + str(
+                                        cama_list) + '\n\n<@363032621845839892>さん： ' + str(
+                                        math.floor(bun_samurai)) + ' diaを受取り、以下の方に ' + str(
+                                        math.floor(bunpc)) + ' diaを分配下さい。\n' + str(
+                                        samurai_list) + '\n\n<@290377448711782400>さん： ' + str(
+                                        math.floor(bun_death)) + ' diaを受取り、以下の方に ' + str(
+                                        math.floor(bunpc)) + ' diaを分配下さい。\n ' + str(death_list))
+                                await culc_channel.send('finish!')
+                                return
+
+                        elif pp >= 25 and dia < 5000:
+                            # print('ここまできたよ')
+                            bunpd = dia / pp
+                            if bunpd < 100:
+                                meishubun2 = dia / 3
+                                await culc_channel.send(
+                                    str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                        worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                        dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row,
+                                                                                         5).value) + 'と取引を行って下さい。\n25人以上で分配が100dia/人 未満なので全額血盟資金となります。\n' + str(
+                                        math.floor(
+                                            meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n\nfinish!')
+                                return
+                            else:
+                                cama_num = 0
+                                death_num = 0
+                                samurai_num = 0
+                                for num in range(pp):
+                                    id_col = int(num) + int(12)
+                                    id_clan_posi = worksheet_id.find(str(worksheet_list.cell(id_cell.row, id_col).value))
+                                    await asyncio.sleep(3)
+                                    if id_clan_posi.col == 13:
+                                        cama_list.append('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
+                                        cama_num = cama_num + 1
+                                    elif id_clan_posi.col == 16:
+                                        death_list.append(
+                                            '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
+                                        death_num = death_num + 1
+                                    elif id_clan_posi.col == 19:
+                                        samurai_list.append(
+                                            '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
+                                        samurai_num = samurai_num + 1
+                                cama_list = '\n'.join(cama_list)
+                                death_list = '\n'.join(death_list)
+                                samurai_list = '\n'.join(samurai_list)
+                                await culc_channel.send(
+                                    str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                        worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                        dia) + ' diaで売れました。\n25人以上 / 分配 100dia以上なので盟主が分配します。以下に従って盟主と取引して下さい。')
                                 cama_bun_total = bunpd * cama_num
-                                cama_bun = cama_bun_total / cama_num
+                                death_bun_total = bunpd * death_num
+                                samurai_bun_total = bunpd * samurai_num
                                 await culc_channel.send(
                                     '<@477504935727071232>さんに' + str(math.floor(cama_bun_total)) + ' dia を渡してください。')
-                                await culc_channel.send('<@477504935727071232>さんは以下の方々に' + str(
-                                    math.floor(cama_bun)) + ' dia を渡してください。\n' + str(cama_list))
-                                if death_num >= 10:
-                                    death_ketsu = death_bun_total * 0.03
-                                    death_bun = (death_bun_total - death_ketsu) / death_num
-                                    await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
-                                        math.floor(death_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
-                                        math.floor(death_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(death_list))
+                                await culc_channel.send(
+                                    '<@363032621845839892>さんに' + str(math.floor(samurai_bun_total)) + ' dia を渡してください。')
+                                await culc_channel.send(
+                                    '<@290377448711782400>さんに' + str(math.floor(death_bun_total)) + ' dia を渡してください。')
+                                cama_bun_total = cama_bun_total * 0.95
+                                death_bun_total = death_bun_total * 0.95
+                                samurai_bun_total = samurai_bun_total * 0.95
+                                await culc_channel.send('以下に分配対象者を列挙しますので、別のコマンド入力はやめてください。')
 
-                                    if samurai_num >= 10:
-                                        samurai_ketsu = samurai_bun_total * 0.03
-                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
-                                        await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
-                                            math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
-                                            math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
+                                if cama_num >= 10:
+                                    cama_ketsu = cama_bun_total * 0.03
+                                    cama_bun = (cama_bun_total - cama_ketsu) / cama_num
+                                    await culc_channel.send('<@477504935727071232>さんは以下の方々に' + str(
+                                        math.floor(cama_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                        math.floor(cama_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(cama_list))
+
+                                    if death_num >= 10:
+                                        death_ketsu = death_bun_total * 0.03
+                                        death_bun = (death_bun_total - death_ketsu) / death_num
+                                        await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
+                                            math.floor(death_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                            math.floor(death_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(death_list))
+
+                                        if samurai_num >= 10:
+                                            samurai_ketsu = samurai_bun_total * 0.03
+                                            samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                                math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
+                                        else:
+                                            samurai_bun_total = bunpd * samurai_num
+                                            samurai_bun = samurai_bun_total / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
                                     else:
-                                        samurai_bun_total = bunpd * samurai_num
-                                        samurai_bun = samurai_bun_total / samurai_num
-                                        await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
-                                            math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
+                                        death_bun_total = bunpd * death_num
+                                        death_bun = death_bun_total / death_num
+                                        await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
+                                            math.floor(death_bun)) + ' dia を渡してください。\n' + str(death_list))
+                                        if samurai_num >= 10:
+                                            samurai_ketsu = samurai_bun_total * 0.03
+                                            samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                                math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
+                                        else:
+                                            samurai_bun_total = bunpd * samurai_num
+                                            samurai_bun = samurai_bun_total / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
                                 else:
-                                    death_bun_total = bunpd * death_num
-                                    death_bun = death_bun_total / death_num
-                                    await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
-                                        math.floor(death_bun)) + ' dia を渡してください。\n' + str(death_list))
-                                    if samurai_num >= 10:
-                                        samurai_ketsu = samurai_bun_total * 0.03
-                                        samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
-                                        await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
-                                            math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
-                                            math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
-                                    else:
-                                        samurai_bun_total = bunpd * samurai_num
-                                        samurai_bun = samurai_bun_total / samurai_num
-                                        await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
-                                            math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
-                            await culc_channel.send('finish!')
+                                    cama_bun_total = bunpd * cama_num
+                                    cama_bun = cama_bun_total / cama_num
+                                    await culc_channel.send(
+                                        '<@477504935727071232>さんに' + str(math.floor(cama_bun_total)) + ' dia を渡してください。')
+                                    await culc_channel.send('<@477504935727071232>さんは以下の方々に' + str(
+                                        math.floor(cama_bun)) + ' dia を渡してください。\n' + str(cama_list))
+                                    if death_num >= 10:
+                                        death_ketsu = death_bun_total * 0.03
+                                        death_bun = (death_bun_total - death_ketsu) / death_num
+                                        await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
+                                            math.floor(death_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                            math.floor(death_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(death_list))
 
+                                        if samurai_num >= 10:
+                                            samurai_ketsu = samurai_bun_total * 0.03
+                                            samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                                math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
+                                        else:
+                                            samurai_bun_total = bunpd * samurai_num
+                                            samurai_bun = samurai_bun_total / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
+                                    else:
+                                        death_bun_total = bunpd * death_num
+                                        death_bun = death_bun_total / death_num
+                                        await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
+                                            math.floor(death_bun)) + ' dia を渡してください。\n' + str(death_list))
+                                        if samurai_num >= 10:
+                                            samurai_ketsu = samurai_bun_total * 0.03
+                                            samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                                math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(samurai_list))
+                                        else:
+                                            samurai_bun_total = bunpd * samurai_num
+                                            samurai_bun = samurai_bun_total / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
+                                await culc_channel.send('finish!')
+
+                        else:
+                            await culc_channel.send('えろてろまで問い合わせを。')
+            else:
+                await culc_channel.send('本案件は参加者に購入者を含む案件になります。違う場合は "えろてろ" までご連絡下さい')
+                pp_a = pp - 1
+                if pp < 10 and dia < 5000:
+                    bunpa = dia / pp_a
+                    if bunpa < 50:
+                        dice = random.randint(1, pp)  # サイコロを振る。出る目を指定。
+                        dice_a = int(dice) + int(11)
+                        ran_men = worksheet_list.cell(id_cell.row, int(dice_a)).value
+                        if ran_men == buyer_id:
+                            dice_retry = random.randint(1, pp)
+                            while not dice == dice_retry:
+                                dice_retry = random.randint(1, pp)
+                            dice_a = int(dice_retry) + int(11)
+                            ran_men = worksheet_list.cell(id_cell.row, int(dice_a)).value
+                        await culc_channel.send(
+                            str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                dia) + ' diaで売れたので分配を行います。\n' + str(
+                                worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
+                                math.floor(bunpa)) + 'dia/人)なので、抽選になります。\n抽選の結果、<@' + str(ran_men) + '> が当選！\n' + str(
+                                dia) + ' diaの取引をお願いします。')
+                        return
                     else:
-                        await culc_channel.send('えろてろまで問い合わせを。')
+                        await culc_channel.send(
+                            str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                dia) + ' diaで売れました。\nメンションされている方々は以下に従い' + str(
+                                worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配：' + str(
+                                math.floor(bunpa)) + 'dia\n対象者')
+                        for num in range(pp):
+                            id_col = int(num) + int(12)
+                            men = worksheet_list.cell(id_cell.row, id_col).value
+                            if men == buyer_id:
+                                await culc_channel.send('購入者削除痕')
+                                await asyncio.sleep(2)
+                            else:
+                                await culc_channel.send('<@' + str(men) + '>')
+                                await asyncio.sleep(2)
+                        #                    id_check = '\n'.join(id_check)
+                        await culc_channel.send('finish')
+                        return
+                elif pp < 10 and dia >= 5000:
+                    ketsu = dia * 0.03
+                    bunpb = (dia - ketsu * 3) / (pp - 1)
+                    await culc_channel.send(
+                        str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                            worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                            dia) + ' diaで売れました。\nメンションされている方々は以下に従い' + str(
+                            worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n血盟資金として ' + str(
+                            math.floor(ketsu)) + 'diaを各盟主へ渡してください。\nメンションされている方々は ' + str(math.floor(
+                            bunpb)) + 'diaで出品して下さい。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n\n分配\n')
+                    for num in range(pp):
+                        id_col = int(num) + int(12)
+                        men = worksheet_list.cell(id_cell.row, id_col).value
+                        if men == buyer_id:
+                            await culc_channel.send('購入者削除痕')
+                            await asyncio.sleep(2)
+                        else:
+                            await culc_channel.send('<@' + str(men) + '>\n')
+                            await asyncio.sleep(2)
+                        #                    id_check = '\n'.join(id_check)
+                    await culc_channel.send('finish')
+                    return
+                else:
+                    if 10 <= pp < 25 and dia >= 5000:
+                        ketsu = dia * 0.03
+                        tema = dia * 0.05
+                        if tema < 500:
+                            bunpb = (dia - ketsu * 3 - tema) / (pp - 1)
+                            await culc_channel.send(
+                                str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                    dia) + ' diaで売れました。\n' + str(
+                                    worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n血盟資金:' + str(
+                                    math.floor(ketsu)) + 'diaを各盟主へ渡してください。\nメンションされている方々は ' + str(
+                                    math.floor(bunpb)) + 'diaで出品して下さい。\nちなみに手間賃' + str(math.floor(
+                                    tema)) + 'diaです。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n\n分配\n')
+                            for num in range(pp):
+                                id_col = int(num) + int(12)
+                                men = worksheet_list.cell(id_cell.row, id_col).value
+                                if str(men) == str(buyer_id):
+                                    await culc_channel.send('購入者削除痕')
+                                    await asyncio.sleep(2)
+                                else:
+                                    await culc_channel.send('<@' + str(men) + '>\n')
+                                    await asyncio.sleep(2)
+                            await culc_channel.send('finish')
+                            # id_check = '\n'.join(id_check)
+
+                        elif tema >= 500:
+                            tema = 500
+                            bunpb = (dia - ketsu * 3 - tema) / (pp - 1)
+                            await culc_channel.send(
+                                str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                    dia) + ' diaで売れました。\n' + str(
+                                    worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n血盟資金:' + str(
+                                    math.floor(ketsu)) + 'diaを各盟主へ渡してください。\nメンションされている方々は ' + str(
+                                    math.floor(bunpb)) + 'diaで出品して下さい。\nちなみに手間賃は上限の' + str(math.floor(
+                                    tema)) + 'diaです。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n\n分配\n')
+                            for num in range(pp):
+                                id_col = int(num) + int(12)
+                                men = worksheet_list.cell(id_cell.row, id_col).value
+                                if str(men) == str(buyer_id):
+                                    await culc_channel.send('購入者削除痕')
+                                    await asyncio.sleep(2)
+                                else:
+                                    await culc_channel.send('<@' + str(men) + '>\n')
+                                    await asyncio.sleep(2)
+                            await culc_channel.send('finish!')
+                        else:
+                            await culc_channel.send('えろてろまで問い合わせを。')
+                        return
+
+                    elif 10 <= pp < 25 and dia < 5000:
+                        tema = dia * 0.05
+                        bunpb = (dia - tema) / (pp -1)
+                        if bunpb < 50:
+                            dice = random.randint(1, pp)  # サイコロを振る。出る目を指定。
+                            dice_a = int(dice) + int(11)
+                            ran_men = worksheet_list.cell(id_cell.row, int(dice_a)).value
+                            await culc_channel.send(
+                                str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                    dia) + ' diaで売れました。\n' + str(
+                                    worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
+                                    math.floor(bunpb)) + 'dia/人)なので、抽選を行います。\n...抽選の結果、<@' + str(
+                                    ran_men) + '> が当選！\n' + str(dia) + ' diaの取引をお願いします。')
+                            return
+                        else:
+                            await culc_channel.send(
+                                str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                    worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                    dia) + ' diaで売れました。\n' + str(
+                                    worksheet_list.cell(id_cell.row,
+                                                        5).value) + 'と取引を行って下さい。\n10人以上, 5000dia未満なので以下となります。\nメンションされている方々は ' + str(
+                                    math.floor(bunpb)) + 'diaで出品して下さい。\n分配者手数料は' + str(
+                                    math.floor(tema)) + 'diaです。\n血盟資金はありません。\n')
+                            for num in range(pp):
+                                id_col = int(num) + int(12)
+                                men = worksheet_list.cell(id_cell.row, id_col).value
+                                if str(men) == str(buyer_id):
+                                    await culc_channel.send('購入者削除痕')
+                                    await asyncio.sleep(2)
+                                else:
+                                    await culc_channel.send('<@' + str(men) + '>\n')
+                                    await asyncio.sleep(2)
+                            await culc_channel.send('finish!')
+                            return
+                    else:
+                        if pp >= 25 and dia >= 5000:
+                            ketsushi = dia * 0.03
+                            bunpc = (dia - ketsushi * 3) / (pp - 1)
+                            if bunpc < 100:
+                                meishubun1 = dia / 3
+                                await culc_channel.send(
+                                    str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                        worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                        dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row,
+                                                                                         5).value) + 'と取引を行って下さい。\n25人以上 / 分配 100dia未満なので全額血盟資金となります。\n３等分した' + str(
+                                        math.floor(
+                                            meishubun1)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。')
+                                await culc_channel.send('finish!')
+                                return
+                            else:
+                                cama_num = 0
+                                death_num = 0
+                                samurai_num = 0
+                                await culc_channel.send('人数が多いため処理に数分時間がかかる場合があります。しばらくお待ちください。')
+                                flag_del = 0
+                                for num in range(pp):
+                                    id_col = int(num) + int(12)
+                                    id_clan_posi = worksheet_id.find(
+                                        str(worksheet_list.cell(id_cell.row, id_col).value))
+                                    # print(id_clan_posi.col)
+                                    await asyncio.sleep(3)
+
+                                    if id_clan_posi.col == 13:
+                                        #   print('カマ')
+                                        men = worksheet_list.cell(id_cell.row, id_col).value
+                                        if men == buyer_id:
+                                            cama_list.append(
+                                                '<購入者削除痕>')
+                                            flag_del = 1
+                                        else:
+                                            cama_list.append(
+                                                '<@' + str(men) + '>')
+                                            cama_num = cama_num + 1
+                                    elif id_clan_posi.col == 16:
+                                        #   print('デス')
+                                        men = worksheet_list.cell(id_cell.row, id_col).value
+                                        if men == buyer_id:
+                                            death_list.append(
+                                                '<購入者削除痕>')
+                                            flag_del = 1
+                                        else:
+                                            death_list.append(
+                                                '<@' + str(men) + '>')
+                                            death_num = death_num + 1
+                                    elif id_clan_posi.col == 19:
+                                        #   print('サムライ')
+                                        men = worksheet_list.cell(id_cell.row, id_col).value
+                                        if men == buyer_id:
+                                            samurai_list.append(
+                                                '<購入者削除痕>')
+                                            flag_del = 1
+                                        else:
+                                            samurai_list.append(
+                                                '<@' + str(men) + '>')
+                                            samurai_num = samurai_num + 1
+                                cama_list = '\n'.join(cama_list)
+                                death_list = '\n'.join(death_list)
+                                samurai_list = '\n'.join(samurai_list)
+                                bun_cama = bunpc * cama_num + ketsushi
+                                bun_death = bunpc * death_num + ketsushi
+                                bun_samurai = bunpc * samurai_num + ketsushi
+
+                                await culc_channel.send(
+                                    str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                        worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                        dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row,
+                                                                                         5).value) + 'と取引を行って下さい。\n25人以上 / 分配 100dia以上なので盟主が分配します。以下に従って盟主と取引して下さい。\n尚、血盟資金 ' + str(
+                                        math.floor(ketsushi)) + 'diaも含まれています。\n\n<@477504935727071232>さん： ' + str(
+                                        math.floor(bun_cama)) + ' diaを受取り、以下の方に ' + str(
+                                        math.floor(bunpc)) + ' diaを分配下さい。\n' + str(
+                                        cama_list) + '\n\n<@363032621845839892>さん： ' + str(
+                                        math.floor(bun_samurai)) + ' diaを受取り、以下の方に ' + str(
+                                        math.floor(bunpc)) + ' diaを分配下さい。\n' + str(
+                                        samurai_list) + '\n\n<@290377448711782400>さん： ' + str(
+                                        math.floor(bun_death)) + ' diaを受取り、以下の方に ' + str(
+                                        math.floor(bunpc)) + ' diaを分配下さい。\n ' + str(death_list))
+                                await culc_channel.send('finish!')
+                                return
+
+                        elif pp >= 25 and dia < 5000:
+                            # print('ここまできたよ')
+                            bunpd = dia / (pp - 1)
+                            if bunpd < 100:
+                                meishubun2 = dia / 3
+                                await culc_channel.send(
+                                    str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                        worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                        dia) + ' diaで売れました。\n' + str(worksheet_list.cell(id_cell.row,
+                                                                                         5).value) + 'と取引を行って下さい。\n25人以上で分配が100dia/人 未満なので全額血盟資金となります。\n' + str(
+                                        math.floor(
+                                            meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n\nfinish!')
+                                return
+                            else:
+                                cama_num = 0
+                                death_num = 0
+                                samurai_num = 0
+                                for num in range(pp):
+                                    id_col = int(num) + int(12)
+                                    id_clan_posi = worksheet_id.find(
+                                        str(worksheet_list.cell(id_cell.row, id_col).value))
+                                    await asyncio.sleep(3)
+                                    if id_clan_posi.col == 13:
+                                        #   print('カマ')
+                                        men = worksheet_list.cell(id_cell.row, id_col).value
+                                        if men == buyer_id:
+                                            cama_list.append(
+                                                '<購入者削除痕>')
+                                            flag_del = 1
+                                        else:
+                                            cama_list.append(
+                                                '<@' + str(men) + '>')
+                                            cama_num = cama_num + 1
+                                    elif id_clan_posi.col == 16:
+                                        #   print('デス')
+                                        men = worksheet_list.cell(id_cell.row, id_col).value
+                                        if men == buyer_id:
+                                            death_list.append(
+                                                '<購入者削除痕>')
+                                            flag_del = 1
+                                        else:
+                                            death_list.append(
+                                                '<@' + str(men) + '>')
+                                            death_num = death_num + 1
+                                    elif id_clan_posi.col == 19:
+                                        #   print('サムライ')
+                                        men = worksheet_list.cell(id_cell.row, id_col).value
+                                        if men == buyer_id:
+                                            samurai_list.append(
+                                                '<購入者削除痕>')
+                                            flag_del = 1
+                                        else:
+                                            samurai_list.append(
+                                                '<@' + str(men) + '>')
+                                            samurai_num = samurai_num + 1
+                                cama_list = '\n'.join(cama_list)
+                                death_list = '\n'.join(death_list)
+                                samurai_list = '\n'.join(samurai_list)
+                                await culc_channel.send(
+                                    str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
+                                        worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
+                                        dia) + ' diaで売れました。\n25人以上 / 分配 100dia以上なので盟主が分配します。以下に従って盟主と取引して下さい。')
+                                cama_bun_total = bunpd * cama_num
+                                death_bun_total = bunpd * death_num
+                                samurai_bun_total = bunpd * samurai_num
+                                await culc_channel.send(
+                                    '<@477504935727071232>さんに' + str(math.floor(cama_bun_total)) + ' dia を渡してください。')
+                                await culc_channel.send(
+                                    '<@363032621845839892>さんに' + str(math.floor(samurai_bun_total)) + ' dia を渡してください。')
+                                await culc_channel.send(
+                                    '<@290377448711782400>さんに' + str(math.floor(death_bun_total)) + ' dia を渡してください。')
+                                cama_bun_total = cama_bun_total * 0.95
+                                death_bun_total = death_bun_total * 0.95
+                                samurai_bun_total = samurai_bun_total * 0.95
+                                await culc_channel.send('以下に分配対象者を列挙しますので、別のコマンド入力はやめてください。')
+
+                                if cama_num >= 10:
+                                    cama_ketsu = cama_bun_total * 0.03
+                                    cama_bun = (cama_bun_total - cama_ketsu) / cama_num
+                                    await culc_channel.send('<@477504935727071232>さんは以下の方々に' + str(
+                                        math.floor(cama_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                        math.floor(cama_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(cama_list))
+
+                                    if death_num >= 10:
+                                        death_ketsu = death_bun_total * 0.03
+                                        death_bun = (death_bun_total - death_ketsu) / death_num
+                                        await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
+                                            math.floor(death_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                            math.floor(death_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(death_list))
+
+                                        if samurai_num >= 10:
+                                            samurai_ketsu = samurai_bun_total * 0.03
+                                            samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                                math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(
+                                                samurai_list))
+                                        else:
+                                            samurai_bun_total = bunpd * samurai_num
+                                            samurai_bun = samurai_bun_total / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
+                                    else:
+                                        death_bun_total = bunpd * death_num
+                                        death_bun = death_bun_total / death_num
+                                        await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
+                                            math.floor(death_bun)) + ' dia を渡してください。\n' + str(death_list))
+                                        if samurai_num >= 10:
+                                            samurai_ketsu = samurai_bun_total * 0.03
+                                            samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                                math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(
+                                                samurai_list))
+                                        else:
+                                            samurai_bun_total = bunpd * samurai_num
+                                            samurai_bun = samurai_bun_total / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
+                                else:
+                                    cama_bun_total = bunpd * cama_num
+                                    cama_bun = cama_bun_total / cama_num
+                                    await culc_channel.send(
+                                        '<@477504935727071232>さんに' + str(math.floor(cama_bun_total)) + ' dia を渡してください。')
+                                    await culc_channel.send('<@477504935727071232>さんは以下の方々に' + str(
+                                        math.floor(cama_bun)) + ' dia を渡してください。\n' + str(cama_list))
+                                    if death_num >= 10:
+                                        death_ketsu = death_bun_total * 0.03
+                                        death_bun = (death_bun_total - death_ketsu) / death_num
+                                        await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
+                                            math.floor(death_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                            math.floor(death_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(death_list))
+
+                                        if samurai_num >= 10:
+                                            samurai_ketsu = samurai_bun_total * 0.03
+                                            samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                                math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(
+                                                samurai_list))
+                                        else:
+                                            samurai_bun_total = bunpd * samurai_num
+                                            samurai_bun = samurai_bun_total / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
+                                    else:
+                                        death_bun_total = bunpd * death_num
+                                        death_bun = death_bun_total / death_num
+                                        await culc_channel.send('<@290377448711782400>さんは以下の方々に' + str(
+                                            math.floor(death_bun)) + ' dia を渡してください。\n' + str(death_list))
+                                        if samurai_num >= 10:
+                                            samurai_ketsu = samurai_bun_total * 0.03
+                                            samurai_bun = (samurai_bun_total - samurai_ketsu) / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\nまた10名以上なので血盟資金が' + str(
+                                                math.floor(samurai_ketsu)) + 'dia 発生していますので受領下さい。\n' + str(
+                                                samurai_list))
+                                        else:
+                                            samurai_bun_total = bunpd * samurai_num
+                                            samurai_bun = samurai_bun_total / samurai_num
+                                            await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
+                                                math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
+                                await culc_channel.send('finish!')
+
+                        else:
+                            await culc_channel.send('えろてろまで問い合わせを。')
+
 
     #########高額レア販売システム#########
     elif message.content.startswith('sell1'):
@@ -1269,6 +1676,7 @@ async def on_message(message):
         await sell_channel.send(embed=sell4_r)
 
         await sell_channel.send('finish')
+
 
 
     # *****************以下はじゃんけんBOT*******************
