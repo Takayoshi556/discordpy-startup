@@ -725,14 +725,14 @@ async def on_message(message):
             worksheet_list.update_cell(id_cell.row, 7, str('finish'))  # 分配実行フラグ変更
             worksheet_list.update_cell(id_cell.row, 10, str(rbun_dia))  # 分配ダイア入力
             #            worksheet_list.update_cell(id_cell.row, 11, str(rbun_buyer))   # 購入者入力
-            buyer_id = worksheet_list.cell(id_cell.row, 11).value
+            buyer_id = worksheet_list.cell(id_cell.row, 167).value
             pp = int(worksheet_list.cell(id_cell.row, 9).value)
             dia = int(rbun_dia)
             id_check = list()
             cama_list = list()
             death_list = list()
             samurai_list = list()
-            if buyer_id == '-':
+            if buyer_id == '0':
                 if pp < 10 and dia < 5000:
                     bunpa = dia / pp
                     if bunpa < 50:
@@ -1046,7 +1046,7 @@ async def on_message(message):
 
                         else:
                             await culc_channel.send('えろてろまで問い合わせを。')
-            else:
+            elif buyer_id == '1':
                 await culc_channel.send('本案件は参加者に購入者を含む案件になります。違う場合は "えろてろ" までご連絡下さい')
                 pp_a = pp - 1
                 if pp < 10 and dia < 5000:
@@ -1457,6 +1457,7 @@ async def on_message(message):
         worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
         worksheet_sell = gc.open_by_key(SPREADSHEET_KEY).worksheet('sell_list')
         id_count = worksheet_id.cell(6, 8).value
+        print(id_count)
         await sell_channel.send('初回販売品\n参加者50% OFF, 未参加者20% OFF\n')
         for num in range(int(id_count)):
             sell_row = 3 + num
@@ -1484,6 +1485,7 @@ async def on_message(message):
         await sell_channel.send('====================')
         await sell_channel.send('第二回販売品\n参加者、未参加者共に50%OFF\n')
         for num in range(int(id_count)):
+            print(num)
             sell_row = 3 + num
             count_checker = worksheet_sell.cell(sell_row, 8).value
             if int(count_checker) == 2:
@@ -1676,7 +1678,6 @@ async def on_message(message):
         await sell_channel.send(embed=sell4_r)
 
         await sell_channel.send('finish')
-
 
 
     # *****************以下はじゃんけんBOT*******************
