@@ -1163,7 +1163,7 @@ async def on_message(message):
 
                     elif 10 <= pp < 25 and dia < 5000:
                         tema = dia * 0.05
-                        bunpb = (dia - tema) / (pp -1)
+                        bunpb = (dia - tema) / (pp - 1)
                         if bunpb < 50:
                             dice = random.randint(1, pp)  # サイコロを振る。出る目を指定。
                             dice_a = int(dice) + int(11)
@@ -1260,6 +1260,7 @@ async def on_message(message):
                                 cama_list = '\n'.join(cama_list)
                                 death_list = '\n'.join(death_list)
                                 samurai_list = '\n'.join(samurai_list)
+                                bunpc = (dia - ketsushi * 3) / (pp - int(flag_del))
                                 bun_cama = bunpc * cama_num + ketsushi
                                 bun_death = bunpc * death_num + ketsushi
                                 bun_samurai = bunpc * samurai_num + ketsushi
@@ -1303,6 +1304,7 @@ async def on_message(message):
                                     id_clan_posi = worksheet_id.find(
                                         str(worksheet_list.cell(id_cell.row, id_col).value))
                                     await asyncio.sleep(3)
+                                    flag_del = 0
                                     if id_clan_posi.col == 13:
                                         #   print('カマ')
                                         men = worksheet_list.cell(id_cell.row, id_col).value
@@ -1343,6 +1345,8 @@ async def on_message(message):
                                     str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
                                         worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
                                         dia) + ' diaで売れました。\n25人以上 / 分配 100dia以上なので盟主が分配します。以下に従って盟主と取引して下さい。')
+                                pp = pp - int(flag_del)
+                                bunpd = dia / pp
                                 cama_bun_total = bunpd * cama_num
                                 death_bun_total = bunpd * death_num
                                 samurai_bun_total = bunpd * samurai_num
