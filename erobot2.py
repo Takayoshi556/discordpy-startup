@@ -709,6 +709,70 @@ async def on_message(message):
                 color=discord.Colour.red())
             msg = await list_channel.send(embed=drp)  # debag
 
+    elif message.content.startswith('entry '):
+        if message.channel.id == 743314066713477251:
+            worksheet_list = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
+            worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
+            rbun_list = message.content.split()
+            rbun_id = rbun_list[1]
+            id_cell = worksheet_list.find(str(rbun_id))
+            pp = int(worksheet_list.cell(id_cell.row, 9).value)
+            cama_num = 0
+            death_num = 0
+            samurai_num = 0
+            cama_list = list()
+            death_list = list()
+            samurai_list = list()
+            par_read = 0
+            par_msg = await list_channel.send('Load progress...' + str(par_read) + '%')
+            for num in range(pp):
+                par_read = int(num) / int(pp) * 100
+                await par_msg.edit(content='Load progress...' + str(math.floor(par_read)) + '%')
+                id_col = int(num) + int(12)
+                id_clan_posi = worksheet_id.find(str(worksheet_list.cell(id_cell.row, id_col).value))
+                # print(id_clan_posi.col)
+                await asyncio.sleep(3)
+
+                if id_clan_posi.col == 13:
+                    #   print('カマ')
+                    cama_list.append('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
+                    cama_num = cama_num + 1
+                elif id_clan_posi.col == 16:
+                    #   print('デス')
+                    death_list.append('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
+                    death_num = death_num + 1
+                elif id_clan_posi.col == 19:
+                    #   print('サムライ')
+                    samurai_list.append(
+                        '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
+                    samurai_num = samurai_num + 1
+            cama_list = '\n'.join(cama_list)
+            death_list = '\n'.join(death_list)
+            samurai_list = '\n'.join(samurai_list)
+            await par_msg.edit(content='Load progress...100%')
+
+            get_r = discord.Embed(title = str(rbun_id) +' : List of attendees(CAMA)',
+                                  description='Please check below',
+                                  color=discord.Colour.red())
+            get_r.add_field(name='---------------------------------------------', value=str(cama_list),
+                            inline=True)
+            await list_channel.send(embed=get_r)
+
+            get_r = discord.Embed(title=str(rbun_id) + ' : List of attendees(DEATH)',
+                                  description='Please check below',
+                                  color=discord.Colour.red())
+            get_r.add_field(name='---------------------------------------------', value=str(death_list),
+                            inline=True)
+            await list_channel.send(embed=get_r)
+
+            get_r = discord.Embed(title=str(rbun_id) + ' : List of attendees(SAMURAI)',
+                                  description='Please check below',
+                                  color=discord.Colour.red())
+            get_r.add_field(name='---------------------------------------------', value=str(samurai_list),
+                            inline=True)
+            await list_channel.send(embed=get_r)
+
+
     elif message.content.startswith('bun '):
         await culc_channel.send('Please wait...')
         worksheet_list = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
