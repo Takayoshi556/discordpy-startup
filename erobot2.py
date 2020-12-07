@@ -780,8 +780,15 @@ async def on_message(message):
         rbun_list = message.content.split()
         rbun_id = rbun_list[1]
         rbun_dia = rbun_list[2]
-        #        rbun_buyer = rbun_list[3]
         id_cell = worksheet_list.find(str(rbun_id))
+        entry_msg_id = worksheet_list.cell(id_cell.row, 8).value
+        pp = int(worksheet_list.cell(id_cell.row, 9).value)
+        entry_msg = await regi_channel.fetch_message(entry_msg_id)
+        reaction_num = int(entry_msg.reactions[0].count)
+        if not pp == reaction_num:
+            await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+            return
+        #        rbun_buyer = rbun_list[3]
         if worksheet_list.cell(id_cell.row, 7).value == 'finish':
             await culc_channel.send('このID案件は分配案内が完了しています。\n変更したい方は えろてろ までご連絡おねがいします。')
             return
@@ -790,7 +797,7 @@ async def on_message(message):
             worksheet_list.update_cell(id_cell.row, 10, str(rbun_dia))  # 分配ダイア入力
             #            worksheet_list.update_cell(id_cell.row, 11, str(rbun_buyer))   # 購入者入力
             buyer_id = worksheet_list.cell(id_cell.row, 167).value
-            pp = int(worksheet_list.cell(id_cell.row, 9).value)
+            # pp = int(worksheet_list.cell(id_cell.row, 9).value)
             dia = int(rbun_dia)
             id_check = list()
             cama_list = list()
