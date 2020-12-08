@@ -81,7 +81,9 @@ async def on_raw_reaction_add(payload):
             entry_num = worksheet_find.cell(mid_cell.row, 166).value
             entry_col = int(entry_num) + int(12)
             worksheet_find.update_cell(mid_cell.row, int(entry_col), str(payload.user_id))
-
+            entry_idnum = worksheet_find.cell(mid_cell.row, 1).value
+            await payload.member.send(str(entry_idnum) + 'に参加登録しました。間違えていたら管理者へ連絡下さい。')
+            
     elif payload.channel_id == 740355050182017135:
         msg_id = payload.message_id
         #        test_channel = client.get_channel(722253470023024640)
@@ -785,9 +787,9 @@ async def on_message(message):
         pp = int(worksheet_list.cell(id_cell.row, 9).value)
         entry_msg = await regi_channel.fetch_message(entry_msg_id)
         reaction_num = int(entry_msg.reactions[0].count)
-        if not pp == reaction_num:
-            await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
-            return
+#         if not pp == reaction_num:
+#             await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+#             return
         #        rbun_buyer = rbun_list[3]
         if worksheet_list.cell(id_cell.row, 7).value == 'finish':
             await culc_channel.send('このID案件は分配案内が完了しています。\n変更したい方は えろてろ までご連絡おねがいします。')
@@ -832,6 +834,9 @@ async def on_message(message):
                         await culc_channel.send('finish')
                         return
                 elif pp < 10 and dia >= 5000:
+                    if not pp == reaction_num:
+                        await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                        return
                     ketsu = dia * 0.03
                     bunpb = (dia - ketsu * 3) / pp
                     await culc_channel.send(str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
@@ -849,6 +854,9 @@ async def on_message(message):
                     return
                 else:
                     if 10 <= pp < 25 and dia >= 5000:
+                        if not pp == reaction_num:
+                            await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                            return
                         ketsu = dia * 0.03
                         tema = dia * 0.05
                         if tema < 500:
@@ -869,6 +877,9 @@ async def on_message(message):
                             # id_check = '\n'.join(id_check)
 
                         elif tema >= 500:
+                            if not pp == reaction_num:
+                                await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                                return
                             tema = 500
                             bunpb = (dia - ketsu * 3 - tema) / pp
                             await culc_channel.send(
@@ -902,6 +913,9 @@ async def on_message(message):
                                     ran_men) + '> が当選！\n' + str(dia) + ' diaの取引をお願いします。')
                             return
                         else:
+                            if not pp == reaction_num:
+                                await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                                return
                             await culc_channel.send(
                                 str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
                                     worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(dia) + ' diaで売れました。\n' + str(
@@ -931,6 +945,9 @@ async def on_message(message):
                                 await culc_channel.send('finish!')
                                 return
                             else:
+                                if not pp == reaction_num:
+                                    await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                                    return
                                 cama_num = 0
                                 death_num = 0
                                 samurai_num = 0
@@ -992,6 +1009,9 @@ async def on_message(message):
                                             meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n\nfinish!')
                                 return
                             else:
+                                if not pp == reaction_num:
+                                    await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                                    return
                                 cama_num = 0
                                 death_num = 0
                                 samurai_num = 0
@@ -1141,6 +1161,9 @@ async def on_message(message):
                                 dia) + ' diaの取引をお願いします。')
                         return
                     else:
+                        if not pp == reaction_num:
+                            await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                            return
                         await culc_channel.send(
                             str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
                                 worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
@@ -1160,6 +1183,9 @@ async def on_message(message):
                         await culc_channel.send('finish')
                         return
                 elif pp < 10 and dia >= 5000:
+                    if not pp == reaction_num:
+                        await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                        return
                     ketsu = dia * 0.03
                     bunpb = (dia - ketsu * 3) / (pp - 1)
                     await culc_channel.send(
@@ -1183,6 +1209,9 @@ async def on_message(message):
                     return
                 else:
                     if 10 <= pp < 25 and dia >= 5000:
+                        if not pp == reaction_num:
+                            await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                            return
                         ketsu = dia * 0.03
                         tema = dia * 0.05
                         if tema < 500:
@@ -1208,6 +1237,9 @@ async def on_message(message):
                             # id_check = '\n'.join(id_check)
 
                         elif tema >= 500:
+                            if not pp == reaction_num:
+                                await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                                return
                             tema = 500
                             bunpb = (dia - ketsu * 3 - tema) / (pp - 1)
                             await culc_channel.send(
@@ -1248,6 +1280,9 @@ async def on_message(message):
                                     ran_men) + '> が当選！\n' + str(dia) + ' diaの取引をお願いします。')
                             return
                         else:
+                            if not pp == reaction_num:
+                                await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                                return
                             await culc_channel.send(
                                 str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
                                     worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
@@ -1283,6 +1318,9 @@ async def on_message(message):
                                 await culc_channel.send('finish!')
                                 return
                             else:
+                                if not pp == reaction_num:
+                                    await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                                    return
                                 cama_num = 0
                                 death_num = 0
                                 samurai_num = 0
@@ -1367,6 +1405,9 @@ async def on_message(message):
                                             meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n\nfinish!')
                                 return
                             else:
+                                if not pp == reaction_num:
+                                    await culc_channel.send('Reaction数と登録数が違うのでまだ分配出来ません。\n<@592253165068615680>\n急いで確認よー！')
+                                    return
                                 cama_num = 0
                                 death_num = 0
                                 samurai_num = 0
