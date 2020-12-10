@@ -337,7 +337,6 @@ async def on_message(message):
             #            await wai_channel.send(message.author.name + 'や。さるじやあらへん。\nあいつは今びっくり焼きを調べるのに夢中やで！')
             worksheet = gc.open_by_key(SPREADSHEET_KEY).sheet1
             import_value = str(message.author.name + 'や。さるじやあらへん')
-            worksheet.update_cell(1, 2, import_value)
 
     elif message.content.endswith('さるじや'):
         if message.content.startswith('ワイが'):
@@ -353,7 +352,20 @@ async def on_message(message):
             await wai_channel.send('どうせまた借金するんやろ？')
         else:
             await wai_channel.send('さるじさん６万')
+            
+    elif message.content.startswith('え、またさるじが？'):
+        if message.author.id == 591281241798737938:
+            await wai_channel.send('はよ金かえしや？')
+        else:
+            await wai_channel.send('また魚雷さんんから金借りたで？')
 
+    elif message.content.startswith('なんや'):
+        if message.author.id == 591281241798737938:
+            await wai_channel.send('1万D')
+        else:
+            await wai_channel.send('・・・')
+            
+            
     # **********************************#
     # アイテム管理用リアクション追加
     # **********************************#
