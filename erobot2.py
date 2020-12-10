@@ -365,6 +365,12 @@ async def on_message(message):
         else:
             await wai_channel.send('・・・')
             
+    elif message.content.startswith('バナナ'):
+        if message.author.id == 591281241798737938:
+            await wai_channel.send('1万D')
+        else:
+            await wai_channel.send('さるじ')
+            
             
     # **********************************#
     # アイテム管理用リアクション追加
