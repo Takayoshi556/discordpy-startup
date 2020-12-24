@@ -1410,9 +1410,9 @@ async def on_message(message):
                                 bun_cama = bunpc * cama_num + ketsushi
                                 bun_death = bunpc * death_num + ketsushi
                                 bun_samurai = bunpc * samurai_num + ketsushi
-                                cama_at = (bun_cama - ketsushi) * 0.95 / cama_num
-                                death_at = (bun_death - ketsushi) * 0.95 / death_num
-                                samurai_at = (bun_samurai - ketsushi) * 0.95 / samurai_num
+                                cama_at = (bun_cama * 0.95 - ketsushi) / cama_num
+                                death_at = (bun_death * 0.95 - ketsushi) / death_num
+                                samurai_at = (bun_samurai * 0.95 - ketsushi) / samurai_num
 
                                 await culc_channel.send(
                                     str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
