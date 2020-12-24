@@ -1410,6 +1410,9 @@ async def on_message(message):
                                 bun_cama = bunpc * cama_num + ketsushi
                                 bun_death = bunpc * death_num + ketsushi
                                 bun_samurai = bunpc * samurai_num + ketsushi
+                                cama_at = (bun_cama - ketsushi) * 0.95 / cama_num
+                                death_at = (bun_death - ketsushi) * 0.95 / death_num
+                                samurai_at = (bun_samurai - ketsushi) * 0.95 / samurai_num
 
                                 await culc_channel.send(
                                     str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
@@ -1418,13 +1421,13 @@ async def on_message(message):
                                                                                          5).value) + 'と取引を行って下さい。\n25人以上 / 分配 100dia以上なので盟主が分配します。以下に従って盟主と取引して下さい。\n尚、血盟資金 ' + str(
                                         math.floor(ketsushi)) + 'diaも含まれています。\n\n<@477504935727071232>さん： ' + str(
                                         math.floor(bun_cama)) + ' diaを受取り、以下の方に ' + str(
-                                        math.floor(bunpc)) + ' diaを分配下さい。\n' + str(
+                                        math.floor(cama_at)) + ' diaを分配下さい。\n' + str(
                                         cama_list) + '\n\n<@363032621845839892>さん： ' + str(
                                         math.floor(bun_samurai)) + ' diaを受取り、以下の方に ' + str(
-                                        math.floor(bunpc)) + ' diaを分配下さい。\n' + str(
+                                        math.floor(samurai_at)) + ' diaを分配下さい。\n' + str(
                                         samurai_list) + '\n\n<@290377448711782400>さん： ' + str(
                                         math.floor(bun_death)) + ' diaを受取り、以下の方に ' + str(
-                                        math.floor(bunpc)) + ' diaを分配下さい。\n ' + str(death_list))
+                                        math.floor(death_at)) + ' diaを分配下さい。\n ' + str(death_list))
                                 await culc_channel.send('finish!')
                                 return
 
