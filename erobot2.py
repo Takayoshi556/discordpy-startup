@@ -771,7 +771,7 @@ async def on_message(message):
             samurai_list = '\n'.join(samurai_list)
             await par_msg.edit(content='Load progress...100%')
 
-            get_r = discord.Embed(title = str(rbun_id) +' : List of attendees(CAMA)',
+            get_r = discord.Embed(title=str(rbun_id) + ' : List of attendees(CAMA)',
                                   description='Please check below',
                                   color=discord.Colour.red())
             get_r.add_field(name='---------------------------------------------', value=str(cama_list),
@@ -813,7 +813,7 @@ async def on_message(message):
             await culc_channel.send('このID案件は分配案内が完了しています。\n変更したい方は えろてろ までご連絡おねがいします。')
             return
         else:
-            worksheet_list.update_cell(id_cell.row, 7, str('finish'))  # 分配実行フラグ変更
+            worksheet_list.update_cell(id_cell.row, 7, str('progress'))  # 分配実行フラグ変更
             worksheet_list.update_cell(id_cell.row, 10, str(rbun_dia))  # 分配ダイア入力
             #            worksheet_list.update_cell(id_cell.row, 11, str(rbun_buyer))   # 購入者入力
             buyer_check = worksheet_list.cell(id_cell.row, 167).value
@@ -837,6 +837,7 @@ async def on_message(message):
                                 worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
                                 math.floor(bunpa)) + 'dia/人)なので、抽選になります。\n抽選の結果、<@' + str(ran_men) + '> が当選！\n' + str(
                                 dia) + ' diaの取引をお願いします。')
+                        worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                         return
                     else:
                         await culc_channel.send(
@@ -851,6 +852,7 @@ async def on_message(message):
                             await asyncio.sleep(2)
                         #                    id_check = '\n'.join(id_check)
                         await culc_channel.send('finish')
+                        worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                         return
                 elif pp < 10 and dia >= 5000:
                     if not pp == reaction_num:
@@ -871,6 +873,7 @@ async def on_message(message):
                         await asyncio.sleep(2)
                         #                    id_check = '\n'.join(id_check)
                     await culc_channel.send('finish')
+                    worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                     return
                 else:
                     if 10 <= pp < 25 and dia >= 5000:
@@ -896,6 +899,7 @@ async def on_message(message):
                                 await asyncio.sleep(2)
                                 #                    id_check = '\n'.join(id_check)
                             await culc_channel.send('finish')
+                            worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                             # id_check = '\n'.join(id_check)
 
                         elif tema >= 500:
@@ -918,6 +922,7 @@ async def on_message(message):
                                     '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
                             # id_check = '\n'.join(id_check)
                             await culc_channel.send('finish!')
+                            worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                         else:
                             await culc_channel.send('えろてろまで問い合わせを。')
                         return
@@ -955,6 +960,7 @@ async def on_message(message):
                                     '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
                             # id_check = '\n'.join(id_check)
                             await culc_channel.send('finish!')
+                            worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                             return
                     else:
                         if pp >= 25 and dia >= 5000:
@@ -970,6 +976,8 @@ async def on_message(message):
                                         math.floor(
                                             meishubun1)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。')
                                 await culc_channel.send('finish!')
+                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+
                                 return
                             else:
                                 if not pp == reaction_num:
@@ -1024,6 +1032,7 @@ async def on_message(message):
                                         math.floor(bun_death)) + ' diaを受取り、以下の方に ' + str(
                                         math.floor(bunpc)) + ' diaを分配下さい。\n ' + str(death_list))
                                 await culc_channel.send('finish!')
+                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                                 return
 
                         elif pp >= 25 and dia < 5000:
@@ -1038,6 +1047,7 @@ async def on_message(message):
                                                                                          5).value) + 'と取引を行って下さい。\n25人以上で分配が100dia/人 未満なので全額血盟資金となります。\n' + str(
                                         math.floor(
                                             meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n\nfinish!')
+                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                                 return
                             else:
                                 if not pp == reaction_num:
@@ -1172,6 +1182,7 @@ async def on_message(message):
                                             await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
                                                 math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
                                 await culc_channel.send('finish!')
+                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
 
                         else:
                             await culc_channel.send('えろてろまで問い合わせを。')
@@ -1198,6 +1209,7 @@ async def on_message(message):
                                 worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
                                 math.floor(bunpa)) + 'dia/人)なので、抽選になります。\n抽選の結果、<@' + str(ran_men) + '> が当選！\n' + str(
                                 dia) + ' diaの取引をお願いします。')
+                        worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                         return
                     else:
                         if not pp == reaction_num:
@@ -1220,6 +1232,7 @@ async def on_message(message):
                                 await asyncio.sleep(2)
                         #                    id_check = '\n'.join(id_check)
                         await culc_channel.send('finish')
+                        worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                         return
                 elif pp < 10 and dia >= 5000:
                     if not pp == reaction_num:
@@ -1245,6 +1258,7 @@ async def on_message(message):
                             await asyncio.sleep(2)
                         #                    id_check = '\n'.join(id_check)
                     await culc_channel.send('finish')
+                    worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                     return
                 else:
                     if 10 <= pp < 25 and dia >= 5000:
@@ -1273,6 +1287,7 @@ async def on_message(message):
                                     await culc_channel.send('<@' + str(men) + '>\n')
                                     await asyncio.sleep(2)
                             await culc_channel.send('finish')
+                            worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                             # id_check = '\n'.join(id_check)
 
                         elif tema >= 500:
@@ -1299,6 +1314,7 @@ async def on_message(message):
                                     await culc_channel.send('<@' + str(men) + '>\n')
                                     await asyncio.sleep(2)
                             await culc_channel.send('finish!')
+                            worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                         else:
                             await culc_channel.send('えろてろまで問い合わせを。')
                         return
@@ -1317,6 +1333,7 @@ async def on_message(message):
                                     worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
                                     math.floor(bunpb)) + 'dia/人)なので、抽選を行います。\n...抽選の結果、<@' + str(
                                     ran_men) + '> が当選！\n' + str(dia) + ' diaの取引をお願いします。')
+                            worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                             return
                         else:
                             if not pp == reaction_num:
@@ -1340,6 +1357,7 @@ async def on_message(message):
                                     await culc_channel.send('<@' + str(men) + '>\n')
                                     await asyncio.sleep(2)
                             await culc_channel.send('finish!')
+                            worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                             return
                     else:
                         if pp >= 25 and dia >= 5000:
@@ -1355,6 +1373,7 @@ async def on_message(message):
                                         math.floor(
                                             meishubun1)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。')
                                 await culc_channel.send('finish!')
+                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                                 return
                             else:
                                 if not pp == reaction_num:
@@ -1429,6 +1448,7 @@ async def on_message(message):
                                         math.floor(bun_death)) + ' diaを受取り、以下の方に ' + str(
                                         math.floor(death_at)) + ' diaを分配下さい。\n ' + str(death_list))
                                 await culc_channel.send('finish!')
+                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                                 return
 
                         elif pp >= 25 and dia < 5000:
@@ -1598,10 +1618,10 @@ async def on_message(message):
                                             await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
                                                 math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
                                 await culc_channel.send('finish!')
+                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
 
                         else:
                             await culc_channel.send('えろてろまで問い合わせを。')
-
 
 
     #########高額レア販売システム#########
@@ -1711,16 +1731,29 @@ async def on_message(message):
 
     elif message.content.startswith('soldout'):
         if not message.author.id == 363032621845839892:
-            return
+            if not message.author.id == 689731790935425034:
+                return
         worksheet_find = gc.open_by_key(SPREADSHEET_KEY).worksheet('rare(red,purple)')
         worksheet_id = gc.open_by_key(SPREADSHEET_KEY).worksheet('ID_LIST')
         worksheet_sell = gc.open_by_key(SPREADSHEET_KEY).worksheet('sell_list')
         id_count = worksheet_id.cell(6, 8).value
+        count1 = worksheet_id.cell(7, 8).value
+        count2 = worksheet_id.cell(7, 9).value
+        count3 = worksheet_id.cell(7, 10).value
+        count4 = worksheet_id.cell(7, 11).value
+        sell1_counter = 0
+        sell2_counter = 0
+        sell3_counter = 0
+        sell4_counter = 0
         await sell_channel.send('購入者が確定しました。以下一覧を参照の上、購入者は取引を開始して下さい。\nこれから読み込みますのでコマンドを打たずに少々お待ちください。')
         sell1_list = list()
         sell2_list = list()
         sell3_list = list()
         sell4_list = list()
+        sell1_2_list = list()
+        sell2_2_list = list()
+        sell3_2_list = list()
+        sell4_2_list = list()
         par_read = 0
         par_msg = await sell_channel.send('progress...' + str(par_read) + '%')
         await asyncio.sleep(1)
@@ -1740,16 +1773,45 @@ async def on_message(message):
                 owner = worksheet_sell.cell(sell_row, 5).value
 
                 if sell_num == 1:
-                    sell1_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                    if sell1_counter <= 15:
+                        sell1_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                        sell1_counter = sell1_counter + 1
+                    elif sell1_counter >= 16:
+                        sell1_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                        sell1_counter = sell1_counter + 1
+                    else:
+                        sell_channel.send('sell1の'+sell1_counter+'でエラーがおきてるー！')
+                        return
                 elif sell_num == 2:
-                    sell2_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                    if sell2_counter <= 15:
+                        sell2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                        sell2_counter = sell2_counter + 1
+                    elif sell2_counter >= 16:
+                        sell2_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                        sell2_counter = sell2_counter + 1
+                    else:
+                        sell_channel.send('sell2の'+sell2_counter+'でエラーがおきてるー！')
+                        return
                 elif sell_num == 3:
-                    sell3_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                    if sell3_counter <= 15:
+                        sell3_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                        sell3_counter = sell3_counter + 1
+                    elif sell3_counter >= 16:
+                        sell3_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                        sell3_counter = sell3_counter + 1
+                    else:
+                        sell_channel.send('sell3の'+sell3_counter+'でエラーがおきてるー！')
+                        return
                 elif sell_num == 4:
-                    sell4_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                    if sell4_counter <= 15:
+                        sell4_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                        sell4_counter = sell4_counter + 1
+                    elif sell4_counter >= 16:
+                        sell4_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : 見送り')
+                        sell4_counter = sell4_counter + 1
+                    else:
+                        sell_channel.send('sell4の'+sell4_counter+'でエラーがおきてるー！')
+                        return
                 else:
                     await sell_channel.send('エラー発生。えろてろへ連絡を。')
 
@@ -1764,20 +1826,47 @@ async def on_message(message):
                 serch_id = worksheet_find.find(id)
                 worksheet_find.update_cell(serch_id.row, 11, str(buyer))
                 await asyncio.sleep(1)
+                
                 if sell_num == 1:
-                    sell1_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                    if sell1_counter <= 15:
+                        sell1_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell1_counter = sell1_counter + 1
+                    elif sell1_counter >= 16:
+                        sell1_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell1_counter = sell1_counter + 1
+                    else:
+                        sell_channel.send('sell1の'+sell1_counter+'でエラーがおきてるー！')
+                        return
                 elif sell_num == 2:
-                    sell2_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                    if sell2_counter <= 15:
+                        sell2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell2_counter = sell2_counter + 1
+                    elif sell2_counter >= 16:
+                        sell2_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell2_counter = sell2_counter + 1
+                    else:
+                        sell_channel.send('sell2の'+sell2_counter+'でエラーがおきてるー！')
+                        return
                 elif sell_num == 3:
-                    sell3_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                    if sell3_counter <= 15:
+                        sell3_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell3_counter = sell3_counter + 1
+                    elif sell3_counter >= 16:
+                        sell3_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell3_counter = sell3_counter + 1
+                    else:
+                        sell_channel.send('sell3の'+sell3_counter+'でエラーがおきてるー！')
+                        return
                 elif sell_num == 4:
-                    sell4_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
-                else:
-                    await sell_channel.send('エラー発生。えろてろへ連絡を。')
+                    if sell4_counter <= 15:
+                        sell4_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell4_counter = sell4_counter + 1
+                    elif sell4_counter >= 16:
+                        sell4_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell4_counter = sell4_counter + 1
+                    else:
+                        sell_channel.send('sell4の'+sell4_counter+'でエラーがおきてるー！')
+                        return
 
             elif int(uid_count) >= 2:
                 id = worksheet_sell.cell(sell_row, 1).value
@@ -1792,48 +1881,108 @@ async def on_message(message):
                 serch_id = worksheet_find.find(id)
                 worksheet_find.update_cell(serch_id.row, 11, str(buyer))
                 await asyncio.sleep(1)
+
+
                 if sell_num == 1:
-                    sell1_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者(抽選勝者) : ' + '<@' + buyer + '>')
+                    if sell1_counter <= 15:
+                        sell1_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell1_counter = sell1_counter + 1
+                    elif sell1_counter >= 16:
+                        sell1_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell1_counter = sell1_counter + 1
+                    else:
+                        sell_channel.send('sell1の'+sell1_counter+'でエラーがおきてるー！')
+                        return
                 elif sell_num == 2:
-                    sell2_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者(抽選勝者) : ' + '<@' + buyer + '>')
+                    if sell2_counter <= 15:
+                        sell2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell2_counter = sell2_counter + 1
+                    elif sell2_counter >= 16:
+                        sell2_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell2_counter = sell2_counter + 1
+                    else:
+                        sell_channel.send('sell2の'+sell2_counter+'でエラーがおきてるー！')
+                        return
                 elif sell_num == 3:
-                    sell3_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者(抽選勝者) : ' + '<@' + buyer + '>')
+                    if sell3_counter <= 15:
+                        sell3_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell3_counter = sell3_counter + 1
+                    elif sell3_counter >= 16:
+                        sell3_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell3_counter = sell3_counter + 1
+                    else:
+                        sell_channel.send('sell3の'+sell3_counter+'でエラーがおきてるー！')
+                        return
                 elif sell_num == 4:
-                    sell4_list.append(
-                        id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者(抽選勝者) : ' + '<@' + buyer + '>')
+                    if sell4_counter <= 15:
+                        sell4_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell4_counter = sell4_counter + 1
+                    elif sell4_counter >= 16:
+                        sell4_2_list.append(id + '\t: ' + item + '\t/ ' + price + 'dia\n所持者 : ' + owner + '\n購入者 : ' + '<@' + buyer + '>')
+                        sell4_counter = sell4_counter + 1
+                    else:
+                        sell_channel.send('sell4の'+sell4_counter+'でエラーがおきてるー！')
+                        return
                 else:
                     await sell_channel.send('エラー発生。えろてろへ連絡を。')
-        sell1_list = '\n------------------\n'.join(sell1_list)
-        sell2_list = '\n------------------\n'.join(sell2_list)
-        sell3_list = '\n------------------\n'.join(sell3_list)
-        sell4_list = '\n------------------\n'.join(sell4_list)
+        sell1_list = '\n----\n'.join(sell1_list)
+        sell2_list = '\n----\n'.join(sell2_list)
+        sell3_list = '\n----\n'.join(sell3_list)
+        sell4_list = '\n----\n'.join(sell4_list)
+        sell1_2_list = '\n----\n'.join(sell1_2_list)
+        sell2_2_list = '\n----\n'.join(sell2_2_list)
+        sell3_2_list = '\n----\n'.join(sell3_2_list)
+        sell4_2_list = '\n----\n'.join(sell4_2_list)
         await par_msg.edit(content='progress...100%')
         sell1_r = discord.Embed(title='第1回販売結果',
                                 description='以下の方々は取引を開始して下さい。',
                                 color=discord.Colour.red())
-        sell1_r.add_field(name='-----', value=str(sell1_list), inline=True)
+        sell1_r.add_field(name='----', value=str(sell1_list), inline=True)
         await sell_channel.send(embed=sell1_r)
+        if sell1_counter >=16:
+            sell1_2_r = discord.Embed(title='第1回販売結果(続き)',
+                                    description='以下の方々は取引を開始して下さい。',
+                                    color=discord.Colour.red())
+            sell1_2_r.add_field(name='----', value=str(sell1_2_list), inline=True)
+            await sell_channel.send(embed=sell1_2_r)
+
         sell2_r = discord.Embed(title='第2回販売結果',
                                 description='以下の方々は取引を開始して下さい。',
                                 color=discord.Colour.red())
-        sell2_r.add_field(name='-----', value=str(sell2_list), inline=True)
+        sell2_r.add_field(name='----', value=str(sell2_list), inline=True)
         await sell_channel.send(embed=sell2_r)
+        if sell2_counter >=16:
+            sell2_2_r = discord.Embed(title='第2回販売結果(続き)',
+                                    description='以下の方々は取引を開始して下さい。',
+                                    color=discord.Colour.red())
+            sell2_2_r.add_field(name='----', value=str(sell2_2_list), inline=True)
+            await sell_channel.send(embed=sell2_2_r)
+
         sell3_r = discord.Embed(title='第3回販売結果',
                                 description='以下の方々は取引を開始して下さい。',
                                 color=discord.Colour.red())
-        sell3_r.add_field(name='-----', value=str(sell3_list), inline=True)
+        sell3_r.add_field(name='----', value=str(sell3_list), inline=True)
         await sell_channel.send(embed=sell3_r)
+        if sell3_counter >=16:
+            sell3_2_r = discord.Embed(title='第3回販売結果(続き)',
+                                    description='以下の方々は取引を開始して下さい。',
+                                    color=discord.Colour.red())
+            sell3_2_r.add_field(name='----', value=str(sell3_2_list), inline=True)
+            await sell_channel.send(embed=sell3_2_r)
+
         sell4_r = discord.Embed(title='第4回販売結果',
                                 description='以下の方々は取引を開始して下さい。',
                                 color=discord.Colour.red())
-        sell4_r.add_field(name='-----', value=str(sell4_list), inline=True)
+        sell4_r.add_field(name='----', value=str(sell4_list), inline=True)
         await sell_channel.send(embed=sell4_r)
+        if sell4_counter >=16:
+            sell4_2_r = discord.Embed(title='第4回販売結果(続き)',
+                                    description='以下の方々は取引を開始して下さい。',
+                                    color=discord.Colour.red())
+            sell4_2_r.add_field(name='----', value=str(sell4_2_list), inline=True)
+            await sell_channel.send(embed=sell4_2_r)
 
         await sell_channel.send('finish')
-
 
     # *****************以下はじゃんけんBOT*******************
 
