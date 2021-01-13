@@ -830,6 +830,7 @@ async def on_message(message):
                         dice = random.randint(1, pp)  # サイコロを振る。出る目を指定。
                         dice_a = int(dice) + int(11)
                         ran_men = worksheet_list.cell(id_cell.row, int(dice_a)).value
+                        worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                         await culc_channel.send(
                             str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
                                 worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
@@ -837,7 +838,7 @@ async def on_message(message):
                                 worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
                                 math.floor(bunpa)) + 'dia/人)なので、抽選になります。\n抽選の結果、<@' + str(ran_men) + '> が当選！\n' + str(
                                 dia) + ' diaの取引をお願いします。')
-                        worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                        
                         return
                     else:
                         await culc_channel.send(
@@ -851,8 +852,9 @@ async def on_message(message):
                             await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
                             await asyncio.sleep(2)
                         #                    id_check = '\n'.join(id_check)
-                        await culc_channel.send('finish')
                         worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                        await culc_channel.send('finish')
+                        
                         return
                 elif pp < 10 and dia >= 5000:
                     if not pp == reaction_num:
@@ -872,8 +874,9 @@ async def on_message(message):
                         await culc_channel.send('<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>\n')
                         await asyncio.sleep(2)
                         #                    id_check = '\n'.join(id_check)
-                    await culc_channel.send('finish')
                     worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                    await culc_channel.send('finish')
+                    
                     return
                 else:
                     if 10 <= pp < 25 and dia >= 5000:
@@ -898,8 +901,9 @@ async def on_message(message):
                                     '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
                                 await asyncio.sleep(2)
                                 #                    id_check = '\n'.join(id_check)
-                            await culc_channel.send('finish')
                             worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                            await culc_channel.send('finish')
+                            
                             # id_check = '\n'.join(id_check)
 
                         elif tema >= 500:
@@ -921,8 +925,9 @@ async def on_message(message):
                                 await culc_channel.send(
                                     '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
                             # id_check = '\n'.join(id_check)
-                            await culc_channel.send('finish!')
                             worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                            await culc_channel.send('finish!')
+                            
                         else:
                             await culc_channel.send('えろてろまで問い合わせを。')
                         return
@@ -959,8 +964,9 @@ async def on_message(message):
                                 await culc_channel.send(
                                     '<@' + str(worksheet_list.cell(id_cell.row, id_col).value) + '>')
                             # id_check = '\n'.join(id_check)
-                            await culc_channel.send('finish!')
                             worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                            await culc_channel.send('finish!')
+                            
                             return
                     else:
                         if pp >= 25 and dia >= 5000:
@@ -975,9 +981,9 @@ async def on_message(message):
                                                                                          5).value) + 'と取引を行って下さい。\n25人以上 / 分配 100dia未満なので全額血盟資金となります。\n３等分した' + str(
                                         math.floor(
                                             meishubun1)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。')
-                                await culc_channel.send('finish!')
                                 worksheet_list.update_cell(id_cell.row, 7, str('finish'))
-
+                                await culc_channel.send('finish!')
+                                
                                 return
                             else:
                                 if not pp == reaction_num:
@@ -1031,8 +1037,9 @@ async def on_message(message):
                                         samurai_list) + '\n\n<@290377448711782400>さん： ' + str(
                                         math.floor(bun_death)) + ' diaを受取り、以下の方に ' + str(
                                         math.floor(bunpc)) + ' diaを分配下さい。\n ' + str(death_list))
-                                await culc_channel.send('finish!')
                                 worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                                await culc_channel.send('finish!')
+                                
                                 return
 
                         elif pp >= 25 and dia < 5000:
@@ -1040,6 +1047,7 @@ async def on_message(message):
                             bunpd = dia / pp
                             if bunpd < 100:
                                 meishubun2 = dia / 3
+                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                                 await culc_channel.send(
                                     str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
                                         worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
@@ -1047,7 +1055,7 @@ async def on_message(message):
                                                                                          5).value) + 'と取引を行って下さい。\n25人以上で分配が100dia/人 未満なので全額血盟資金となります。\n' + str(
                                         math.floor(
                                             meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n\nfinish!')
-                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                                
                                 return
                             else:
                                 if not pp == reaction_num:
@@ -1181,9 +1189,8 @@ async def on_message(message):
                                             samurai_bun = samurai_bun_total / samurai_num
                                             await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
                                                 math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
-                                await culc_channel.send('finish!')
                                 worksheet_list.update_cell(id_cell.row, 7, str('finish'))
-
+                                await culc_channel.send('finish!')
                         else:
                             await culc_channel.send('えろてろまで問い合わせを。')
             elif buyer_check == '1':
@@ -1202,6 +1209,7 @@ async def on_message(message):
                                 dice_retry = random.randint(1, pp)
                             dice_a = int(dice_retry) + int(11)
                             ran_men = worksheet_list.cell(id_cell.row, int(dice_a)).value
+                        worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                         await culc_channel.send(
                             str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
                                 worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
@@ -1209,7 +1217,7 @@ async def on_message(message):
                                 worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
                                 math.floor(bunpa)) + 'dia/人)なので、抽選になります。\n抽選の結果、<@' + str(ran_men) + '> が当選！\n' + str(
                                 dia) + ' diaの取引をお願いします。')
-                        worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                        
                         return
                     else:
                         if not pp == reaction_num:
@@ -1231,8 +1239,9 @@ async def on_message(message):
                                 await culc_channel.send('<@' + str(men) + '>')
                                 await asyncio.sleep(2)
                         #                    id_check = '\n'.join(id_check)
-                        await culc_channel.send('finish')
                         worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                        await culc_channel.send('finish')
+                        
                         return
                 elif pp < 10 and dia >= 5000:
                     if not pp == reaction_num:
@@ -1257,8 +1266,9 @@ async def on_message(message):
                             await culc_channel.send('<@' + str(men) + '>\n')
                             await asyncio.sleep(2)
                         #                    id_check = '\n'.join(id_check)
-                    await culc_channel.send('finish')
                     worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                    await culc_channel.send('finish')
+                    
                     return
                 else:
                     if 10 <= pp < 25 and dia >= 5000:
@@ -1286,8 +1296,9 @@ async def on_message(message):
                                 else:
                                     await culc_channel.send('<@' + str(men) + '>\n')
                                     await asyncio.sleep(2)
-                            await culc_channel.send('finish')
                             worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                            await culc_channel.send('finish')
+                            
                             # id_check = '\n'.join(id_check)
 
                         elif tema >= 500:
@@ -1313,8 +1324,9 @@ async def on_message(message):
                                 else:
                                     await culc_channel.send('<@' + str(men) + '>\n')
                                     await asyncio.sleep(2)
-                            await culc_channel.send('finish!')
                             worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                            await culc_channel.send('finish!')
+                            
                         else:
                             await culc_channel.send('えろてろまで問い合わせを。')
                         return
@@ -1326,6 +1338,7 @@ async def on_message(message):
                             dice = random.randint(1, pp)  # サイコロを振る。出る目を指定。
                             dice_a = int(dice) + int(11)
                             ran_men = worksheet_list.cell(id_cell.row, int(dice_a)).value
+                            worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                             await culc_channel.send(
                                 str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
                                     worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
@@ -1333,7 +1346,7 @@ async def on_message(message):
                                     worksheet_list.cell(id_cell.row, 5).value) + 'と取引を行って下さい。\n分配が50dia未満(' + str(
                                     math.floor(bunpb)) + 'dia/人)なので、抽選を行います。\n...抽選の結果、<@' + str(
                                     ran_men) + '> が当選！\n' + str(dia) + ' diaの取引をお願いします。')
-                            worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                            
                             return
                         else:
                             if not pp == reaction_num:
@@ -1356,8 +1369,9 @@ async def on_message(message):
                                 else:
                                     await culc_channel.send('<@' + str(men) + '>\n')
                                     await asyncio.sleep(2)
-                            await culc_channel.send('finish!')
                             worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                            await culc_channel.send('finish!')
+                            
                             return
                     else:
                         if pp >= 25 and dia >= 5000:
@@ -1372,8 +1386,9 @@ async def on_message(message):
                                                                                          5).value) + 'と取引を行って下さい。\n25人以上 / 分配 100dia未満なので全額血盟資金となります。\n３等分した' + str(
                                         math.floor(
                                             meishubun1)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。')
-                                await culc_channel.send('finish!')
                                 worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                                await culc_channel.send('finish!')
+                                
                                 return
                             else:
                                 if not pp == reaction_num:
@@ -1447,8 +1462,9 @@ async def on_message(message):
                                         samurai_list) + '\n\n<@290377448711782400>さん： ' + str(
                                         math.floor(bun_death)) + ' diaを受取り、以下の方に ' + str(
                                         math.floor(death_at)) + ' diaを分配下さい。\n ' + str(death_list))
-                                await culc_channel.send('finish!')
                                 worksheet_list.update_cell(id_cell.row, 7, str('finish'))
+                                await culc_channel.send('finish!')
+                                
                                 return
 
                         elif pp >= 25 and dia < 5000:
@@ -1456,6 +1472,7 @@ async def on_message(message):
                             bunpd = dia / (pp - 1)
                             if bunpd < 100:
                                 meishubun2 = dia / 3
+                                worksheet_list.update_cell(id_cell.row, 7, str('finish'))
                                 await culc_channel.send(
                                     str(rbun_id) + 'の' + str(worksheet_list.cell(id_cell.row, 2).value) + '/' + str(
                                         worksheet_list.cell(id_cell.row, 3).value) + ' が' + str(
@@ -1463,6 +1480,7 @@ async def on_message(message):
                                                                                          5).value) + 'と取引を行って下さい。\n25人以上で分配が100dia/人 未満なので全額血盟資金となります。\n' + str(
                                         math.floor(
                                             meishubun2)) + 'diaを各盟主に渡してください。\n血盟資金受取\n<@363032621845839892>\n<@477504935727071232>\n<@290377448711782400>\n分配者手数料はありません。\n\nfinish!')
+                                
                                 return
                             else:
                                 if not pp == reaction_num:
@@ -1617,9 +1635,9 @@ async def on_message(message):
                                             samurai_bun = samurai_bun_total / samurai_num
                                             await culc_channel.send('<@363032621845839892>さんは以下の方々に' + str(
                                                 math.floor(samurai_bun)) + ' dia を渡してください。\n' + str(samurai_list))
-                                await culc_channel.send('finish!')
                                 worksheet_list.update_cell(id_cell.row, 7, str('finish'))
-
+                                await culc_channel.send('finish!')
+                                
                         else:
                             await culc_channel.send('えろてろまで問い合わせを。')
 
