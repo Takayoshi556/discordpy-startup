@@ -11,6 +11,9 @@ import math
 import random
 import gspread
 import json
+import sys
+import discord.user
+import discord.reaction
 
 # 自分のBotのアクセストークンに置き換えてください
 TOKEN = os.environ['DISCORD_BOT_TOKEN']
