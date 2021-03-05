@@ -16,10 +16,8 @@ import discord.user
 import discord.reaction
 
 # 自分のBotのアクセストークンに置き換えてください
-TOKEN = 'NzU0ODkyMDIzNjEzNjIwMzE2.X17V-w.jQzXCNuJR1NnCTnOuGpR3BNij7s' #2号機
 
-#'Njg5NzM2OTc5MDc1ODI1NzA2.XnHNng.aNHFYUDGHg-v7PMnE_RoEZdi2GA' #えろぼっと初号機
-#TOKEN = os.environ['DISCORD_BOT_TOKEN']
+TOKEN = os.environ['DISCORD_BOT_TOKEN']
 # SPREADSHEET_KEY =os.environ['GSS_CAMA']
 
 description = '''An example bot to showcase the discord.ext.commands extension
