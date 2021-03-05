@@ -334,7 +334,7 @@ async def on_message(message):
             worksheet_list.update_cell(input_id, 168, 1)
             #idとか格納の名前に、ID番号を付与してあげると重複しなくなる？
             #ここに別鯖に保管しているMSGIDを固定で入力。流れはfetchして格納→INTにして+1→editして再保管。その数値をそのまま使う。
-            limit_hour = int(today.hour) + int(1)
+            limit_hour = int(today.hour) + int(6)
             limit_min = int(today.minute)
             drp = discord.Embed(title='ID: n' + str(id_no) + ' / " ' + str(drop_high_boss) + ' " / " ' + str(
                 drop_high_item) + ' "\n拾得者:' + str(message.author.name),
