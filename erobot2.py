@@ -352,7 +352,7 @@ async def on_message(message):
             #idとか格納の名前に、ID番号を付与してあげると重複しなくなる？
             #ここに別鯖に保管しているMSGIDを固定で入力。流れはfetchして格納→INTにして+1→editして再保管。その数値をそのまま使う。
             limit_day = int(today.day)
-            limit_hour = int(today.hour) + int(6)
+            limit_hour = int(today.hour) + int(15)
             if limit_hour >= 24:
                 limit_hour = limit_hour - int(24)
                 limit_day = limit_day + int(1)
