@@ -382,9 +382,9 @@ async def on_message(message):
                 reac_user.remove(str(689736979075825706))  # bot idをリアクション情報から削除
             ran_men = random.choice(reac_user)
             await dist_channel.send('ID: n' + str(id_no) + ' が定刻になりましたので抽選を行います。\n~~~~~当選者~~~~~\n★　<@' + str(
-                ran_men) + '>　★ \n~~~~~~~~~~~~~~~\n当選者は<@' + str(message.author.id) + '>と' + str(
-                drop_high_boss) + ' " / " ' + str(
-                drop_high_item) + ' の取引を行ってください。')
+                ran_men) + '>　★ \n~~~~~~~~~~~~~~~\n当選者は<@' + str(message.author.id) + '>と "' + str(
+                drop_high_boss) + ' / ' + str(
+                drop_high_item) + '" の取引を行ってください。')
 
     #
     # elif message.content.startswith('!del '):
