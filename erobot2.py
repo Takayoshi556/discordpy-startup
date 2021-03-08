@@ -2,7 +2,7 @@
 import asyncio
 import time
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from datetime import datetime as dt
 from datetime import timedelta
 import csv
@@ -33,6 +33,7 @@ client = discord.Client()
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
+    time_check.start()
 
 # ServiceAccountCredentials：Googleの各サービスへアクセスできるservice変数を生成します。
 from oauth2client.service_account import ServiceAccountCredentials
@@ -49,6 +50,20 @@ gc = gspread.authorize(credentials)
 
 # 共有設定したスプレッドシートキーを変数[SPREADSHEET_KEY]に格納する。
 SPREADSHEET_KEY = '1HsQ_p2Hsg2g4tb8bXClOqseIhCYoI-4-FaWNrlktdnE'
+
+@tasks.loop(seconds=120)
+async def time_check():
+    sleepTime = 0
+    # 現在の時刻
+    loop_time = dt.now().strftime('%Y/%m/%d %H:%M')
+    # print(loop_time)
+    # now2 = dt.now().strftime('%Y%m%d%H%M')
+    # print(now2)
+    #now3 = int(dt.now().strftime('%Y%m%d%H%M')) + 1
+    #print(now3)
+    # # await SendMessage()
+    # #該当時間だった場合は２重に投稿しないよう３０秒余計に待機
+    await asyncio.sleep(120)
 
 @client.event
 async def on_raw_reaction_add(payload):
@@ -99,8 +114,8 @@ async def on_raw_reaction_add(payload):
 
 @client.event
 async def on_message(message):
-    ami_channel = client.get_channel(675359824803790850)
-    list_channel = client.get_channel(743314066713477251)
+    ami_channel = client.get_channel(818338382526414868)
+    list_channel = client.get_channel(816985751253942332)
     regi_channel = client.get_channel(799093019189444618)
     test_channel = client.get_channel(722253470023024640)
     sell_channel = client.get_channel(817318661076549663)
@@ -125,6 +140,8 @@ async def on_message(message):
 
 
         ###############!bunと!diceを封印格納##################
+    elif message.content.startswith('!start'):
+        time_check.start()
 
     # elif message.content.startswith('!bun '):
     #     m_num = message.content.strip('!bun ')
@@ -229,8 +246,8 @@ async def on_message(message):
     #     return
 
     elif message.content.startswith('ami '):
-        if message.channel.id == 675359824803790850:
-            nami_num = message.content.strip('!nami')
+        if message.channel.id == 818338382526414868:
+            nami_num = message.content.strip('ami')
             nami_list = nami_num.split()
             nami_rand = random.choice(nami_list)
             await ami_channel.send('抽選した結果、' + str(nami_rand) + ' が当選！オーメデトーゴーザイマース！')
@@ -334,7 +351,7 @@ async def on_message(message):
             worksheet_list.update_cell(input_id, 168, 1)
             #idとか格納の名前に、ID番号を付与してあげると重複しなくなる？
             #ここに別鯖に保管しているMSGIDを固定で入力。流れはfetchして格納→INTにして+1→editして再保管。その数値をそのまま使う。
-            limit_hour = int(today.hour) + int(6)
+            limit_hour = int(today.hour) + int(1)
             limit_min = int(today.minute)
             drp = discord.Embed(title='ID: n' + str(id_no) + ' / " ' + str(drop_high_boss) + ' " / " ' + str(
                 drop_high_item) + ' "\n拾得者:' + str(message.author.name),
@@ -364,6 +381,7 @@ async def on_message(message):
                 ran_men) + '>　★ \n~~~~~~~~~~~~~~~\n当選者は<@' + str(message.author.id) + '>と' + str(
                 drop_high_boss) + ' " / " ' + str(
                 drop_high_item) + ' の取引を行ってください。')
+
     #
     # elif message.content.startswith('!del '):
     #     if message.channel.id == 743314066713477251:
@@ -1432,7 +1450,7 @@ async def on_message(message):
                 sell4_3_r.add_field(name='-', value=str(sell4_3_list), inline=True)
                 await sell_channel.send(embed=sell4_3_r)
         await sell_channel.send('finish')
-
+        
                 # *****************以下はじゃんけんBOT*******************
     global result, judge
     if message.content == '！じゃんけん':
