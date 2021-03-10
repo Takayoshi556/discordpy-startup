@@ -321,7 +321,7 @@ async def on_message(message):
             worksheet_list.update_cell(input_id, 8, str(message.id))
             worksheet_list.update_cell(input_id, 12, str(message.author.id))
             worksheet_list.update_cell(input_id, 168, 1)
-            drp = discord.Embed(title='ID: r' + str(id_no) + ' / " ' + str(drop_high_boss) + ' " / " ' + str(drop_high_item) + ' "\n拾得者:' + str(message.author.name), description=' 参加者はリアクションして下さい。/Please reaction!', color=discord.Colour.red())
+            drp = discord.Embed(title='ID: r' + str(id_no) + ' / " ' + str(drop_high_boss) + ' " / " ' + str(drop_high_item) + ' "\n拾得者:' + str(message.author.name), description=' @here 参加者はリアクションして下さい。', color=discord.Colour.red())
             msg = await r_regi_channel.send(embed=drp)  # debag
             emoji1 = '\U0001F947'
             await msg.add_reaction(emoji1)
@@ -359,7 +359,7 @@ async def on_message(message):
             limit_min = int(today.minute)
             drp = discord.Embed(title='ID: n' + str(id_no) + ' / " ' + str(drop_high_boss) + ' " / " ' + str(
                 drop_high_item) + ' "\n拾得者:' + str(message.author.name),
-                                description='参加者はリアクションして下さい。\n受付終了は' + str(today.month) + '月' + str(limit_day) + '日' + str(limit_hour) + '時' + str(limit_min) + '分です。', color=discord.Colour.red())
+                                description='@here 参加者はリアクションして下さい。\n受付終了は' + str(today.month) + '月' + str(limit_day) + '日' + str(limit_hour) + '時' + str(limit_min) + '分です。', color=discord.Colour.red())
             msg = await b_regi_channel.send(embed=drp)  # debag
             emoji1 = '\U0001F947'
             await msg.add_reaction(emoji1)
